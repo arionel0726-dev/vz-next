@@ -7,6 +7,8 @@ import UiModal from '../Components/UI/UiModal.vue';
 import UiDrawer from '../Components/UI/UiDrawer.vue';
 import UiIcon from '../Components/UI/UiIcon.vue';
 import type { DrawerPosition } from '../Components/UI/UiDrawer.vue';
+import ProductCard from '../Components/Shop/ProductCard.vue';
+import type { Product } from '../types/product';
 
 const textValue = ref('');
 const emailValue = ref('');
@@ -20,6 +22,67 @@ const isDrawerOpen = ref(false);
 function openDrawer(position: DrawerPosition): void {
     drawerPosition.value = position;
     isDrawerOpen.value = true;
+}
+
+/*
+ * Mock data for the Welcome demo page only — no catalog, no API.
+ */
+const placeholderImage =
+    'data:image/svg+xml;utf8,' +
+    encodeURIComponent(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400">'
+        + '<rect width="400" height="400" fill="%23e3e3e0"/>'
+        + '</svg>',
+    );
+
+const mockProducts = ref<Product[]>([
+    {
+        id: 1,
+        title: 'Hydrating Face Cream',
+        brand: 'Vizaje Lab',
+        image: placeholderImage,
+        price: 420,
+        bonusAmount: 42,
+        isNew: true,
+        inStock: true,
+    },
+    {
+        id: 2,
+        title: 'Matte Lipstick No. 12',
+        brand: 'Nica Beauty',
+        image: placeholderImage,
+        price: 180,
+        oldPrice: 240,
+        salePercent: 25,
+        isSale: true,
+        isHit: true,
+        inStock: true,
+    },
+    {
+        id: 3,
+        title: 'Eau de Parfum 50ml',
+        brand: 'Vizaje Parfum',
+        image: placeholderImage,
+        price: 890,
+        isLiked: true,
+        inStock: false,
+    },
+]);
+
+function handleAddToCart(product: Product): void {
+    console.log('add-to-cart', product);
+}
+
+function handleOpen(product: Product): void {
+    console.log('open', product);
+}
+
+function handleToggleWishlist(product: Product): void {
+    const target = mockProducts.value.find((item) => item.id === product.id);
+
+    if (target) {
+        target.isLiked = !target.isLiked;
+    }
 }
 </script>
 
@@ -146,6 +209,52 @@ function openDrawer(position: DrawerPosition): void {
                 </template>
             </UiDrawer>
         </section>
+
+        <section class="ui-kit-demo__section">
+            <h2>ProductCard — grid</h2>
+            <div class="ui-kit-demo__grid">
+                <ProductCard
+                    v-for="product in mockProducts"
+                    :key="product.id"
+                    :product="product"
+                    variant="grid"
+                    @add-to-cart="handleAddToCart"
+                    @open="handleOpen"
+                    @toggle-wishlist="handleToggleWishlist"
+                />
+            </div>
+        </section>
+
+        <section class="ui-kit-demo__section">
+            <h2>ProductCard — slider</h2>
+            <div class="ui-kit-demo__slider">
+                <ProductCard
+                    v-for="product in mockProducts"
+                    :key="product.id"
+                    :product="product"
+                    variant="slider"
+                    @add-to-cart="handleAddToCart"
+                    @open="handleOpen"
+                    @toggle-wishlist="handleToggleWishlist"
+                />
+            </div>
+        </section>
+
+        <section class="ui-kit-demo__section">
+            <h2>ProductCard — compact</h2>
+            <div class="ui-kit-demo__column">
+                <ProductCard
+                    v-for="product in mockProducts"
+                    :key="product.id"
+                    :product="product"
+                    variant="compact"
+                    :show-cart-button="false"
+                    @add-to-cart="handleAddToCart"
+                    @open="handleOpen"
+                    @toggle-wishlist="handleToggleWishlist"
+                />
+            </div>
+        </section>
     </div>
 </template>
 
@@ -186,5 +295,18 @@ function openDrawer(position: DrawerPosition): void {
     flex-direction: column;
     gap: 1rem;
     max-width: 24rem;
+}
+
+.ui-kit-demo__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+    gap: 1rem;
+}
+
+.ui-kit-demo__slider {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
 }
 </style>
