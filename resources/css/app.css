@@ -4,6 +4,19 @@
 @source '../../storage/framework/views/*.php';
 
 /*
+ * Geist (Vercel, SIL OFL), self-hosted — the font file lives in
+ * resources/fonts and is bundled by Vite, not loaded from a CDN. A
+ * single variable-font file covers the whole 100–900 weight range.
+ */
+@font-face {
+    font-family: 'Geist';
+    src: url('../fonts/Geist-Variable.woff2') format('woff2-variations');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+/*
  * Design tokens — Gold Apple-style reference: near-monochrome
  * (black/white/grey) with exactly one commercial accent (magenta,
  * discount/promo only) and a handful of "game" status tags
@@ -12,10 +25,7 @@
  * scoped style for how these are applied.
  */
 @theme {
-    /* GraphikLCG isn't a licensed web font here; this is the nearest
-       available geometric-grotesk stand-in, same fallback shape as
-       the reference (system sans, no serif). */
-    --font-sans: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    --font-sans: 'Geist', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 
     --color-canvas: #ffffff;
@@ -52,6 +62,8 @@
 
 body {
     font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 400;
     background-color: var(--color-canvas);
     color: var(--color-ink);
 }
