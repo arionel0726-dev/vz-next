@@ -68,7 +68,12 @@ function handleAddToCart(): void {
 }
 
 function handleRelatedAddToCart(product: Product): void {
-    console.log('add-to-cart', product);
+    router.post('/cart/items', {
+        product_id: product.id,
+        quantity: 1,
+    }, {
+        preserveScroll: true,
+    });
 }
 
 function handleRelatedOpen(product: Product): void {

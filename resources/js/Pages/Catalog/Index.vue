@@ -82,7 +82,14 @@ function goToPage(page: number): void {
 }
 
 function handleAddToCart(product: Product): void {
-    console.log('add-to-cart', product);
+    // Quick-add from the grid always adds the base product (no
+    // variant picker here) — the product page handles variants.
+    router.post('/cart/items', {
+        product_id: product.id,
+        quantity: 1,
+    }, {
+        preserveScroll: true,
+    });
 }
 
 function handleOpen(product: Product): void {

@@ -210,4 +210,39 @@ class CartTest extends TestCase
             ->where('cartCount', 3)
         );
     }
+
+    public function test_guest_cart_persists_across_requests_in_the_same_session(): void
+    {
+        $product = $this->makeProduct();
+
+        $this->post('/cart/items', ['product_id' => $product->id, 'quantity' => 2]);
+
+        // Browsing away and back doesn't touch the cart — it should
+        // still be there, same session, no auth involved.
+        $this->get('/catalog');
+        $this->get('/');
+
+        $this->get('/cart')->assertInertia(fn (Assert $page) => $page
+            ->has('items', 1)
+            ->where('items.0.quantity', 2)
+        );
+    }
+
+    public function test_a_different_guest_session_does_not_see_another_guests_cart(): void
+    {
+        $product = $this->makeProduct();
+
+        $this->post('/cart/items', ['product_id' => $product->id, 'quantity' => 2]);
+
+        $this->get('/cart')->assertInertia(fn (Assert $page) => $page
+            ->has('items', 1)
+        );
+
+        // Simulate a brand new guest (fresh session, no cart data).
+        $this->flushSession();
+
+        $this->get('/cart')->assertInertia(fn (Assert $page) => $page
+            ->has('items', 0)
+        );
+    }
 }
