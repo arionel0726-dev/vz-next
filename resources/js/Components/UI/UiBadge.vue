@@ -17,11 +17,17 @@ withDefaults(defineProps<Props>(), {
 </template>
 
 <style scoped>
+/*
+ * Gold Apple reference: status tags are flat, sharp-cornered labels
+ * on the product photo, not soft pastel pills — "new"/"hit" are the
+ * reference's own game-color tags; "sale" is the one commercial
+ * accent (magenta), reserved for the discount signal only.
+ */
 .ui-badge {
     display: inline-flex;
     align-items: center;
     padding: 0.125rem 0.5rem;
-    border-radius: 999px;
+    border-radius: 0;
     font-size: 0.75rem;
     font-weight: 600;
     line-height: 1.4;
@@ -29,27 +35,27 @@ withDefaults(defineProps<Props>(), {
 }
 
 .ui-badge--new {
-    background-color: #e3f3ea;
-    color: #1f7a4d;
+    background-color: var(--color-status-new);
+    color: var(--color-ink);
 }
 
 .ui-badge--sale {
-    background-color: #fde8e8;
-    color: #c53030;
+    background-color: var(--color-accent-magenta);
+    color: var(--color-canvas);
 }
 
 .ui-badge--hit {
-    background-color: #fef3df;
-    color: #a3690b;
+    background-color: var(--color-status-hit);
+    color: var(--color-ink);
 }
 
 .ui-badge--bonus {
-    background-color: #e8ecfd;
-    color: #38469e;
+    background-color: var(--color-surface-muted);
+    color: var(--color-ink);
 }
 
 .ui-badge--custom {
-    background-color: #f1f1ef;
-    color: #1b1b18;
+    background-color: var(--color-ink);
+    color: var(--color-canvas);
 }
 </style>

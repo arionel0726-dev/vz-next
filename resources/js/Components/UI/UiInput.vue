@@ -82,26 +82,26 @@ function handleInput(event: Event): void {
 .ui-input__label {
     font-size: 0.8125rem;
     font-weight: 500;
-    color: #1b1b18;
+    color: var(--color-ink);
 }
 
 .ui-input__field {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    border: 1px solid #d9d9d6;
-    border-radius: 0.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: 0;
     padding: 0 0.75rem;
-    background-color: #fff;
+    background-color: var(--color-canvas);
     transition: border-color 0.15s ease;
 }
 
 .ui-input__field:focus-within {
-    border-color: #1b1b18;
+    border-color: var(--color-ink);
 }
 
 .ui-input.is-error .ui-input__field {
-    border-color: #c53030;
+    border-color: var(--color-danger);
 }
 
 .ui-input__control {
@@ -112,7 +112,7 @@ function handleInput(event: Event): void {
     background: transparent;
     padding: 0.625rem 0;
     font-size: 0.9375rem;
-    color: #1b1b18;
+    color: var(--color-ink);
 }
 
 .ui-input__control:disabled {
@@ -124,11 +124,11 @@ function handleInput(event: Event): void {
 .ui-input__suffix {
     display: inline-flex;
     align-items: center;
-    color: #706f6c;
+    color: var(--color-muted);
 }
 
 .ui-input__error {
     font-size: 0.8125rem;
-    color: #c53030;
+    color: var(--color-danger);
 }
 </style>

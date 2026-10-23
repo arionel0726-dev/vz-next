@@ -113,7 +113,7 @@ watch(
     z-index: 1;
     display: flex;
     flex-direction: column;
-    background-color: #fff;
+    background-color: var(--color-canvas);
     overflow-y: auto;
 }
 
@@ -139,7 +139,9 @@ watch(
 .ui-drawer--bottom .ui-drawer__panel {
     width: 100%;
     max-height: min(85vh, 100%);
-    border-radius: 1rem 1rem 0 0;
+    /* Sharp corner even on the bottom sheet — the reference never
+       softens an edge for "comfort". */
+    border-radius: 0;
     padding: 1.25rem;
 }
 
@@ -156,7 +158,7 @@ watch(
     font-size: 1.25rem;
     line-height: 1;
     cursor: pointer;
-    color: #1b1b18;
+    color: var(--color-ink);
 }
 
 .ui-drawer__body {

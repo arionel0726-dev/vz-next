@@ -73,17 +73,26 @@ function handleClick(event: MouseEvent): void {
 </template>
 
 <style scoped>
+/*
+ * Gold Apple reference: commercial/clickable geometry is always a
+ * sharp 0px corner (never a "soft" mid radius) — only category/swatch
+ * circles get border-radius: 50%, never a button. The primary CTA is
+ * always pure black with uppercase, letter-spaced text; color is
+ * reserved for badges, never for button fills.
+ */
 .ui-button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    padding: 0.625rem 1.25rem;
-    border-radius: 0.5rem;
+    padding: 0.8125rem 0.9375rem;
+    border-radius: 0;
     border: 1px solid transparent;
-    font-size: 0.9375rem;
+    font-size: 0.6875rem;
     font-weight: 500;
     line-height: 1.2;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
     cursor: pointer;
     transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
 }
@@ -98,66 +107,72 @@ function handleClick(event: MouseEvent): void {
 }
 
 .ui-button--primary {
-    background-color: #1b1b18;
-    border-color: #1b1b18;
-    color: #fff;
+    background-color: var(--color-ink);
+    border-color: var(--color-ink);
+    color: var(--color-canvas);
 }
 
 .ui-button--primary:not(:disabled):hover {
-    background-color: #000;
+    background-color: var(--color-ink-soft);
 }
 
 .ui-button--secondary {
-    background-color: #f1f1ef;
-    border-color: #f1f1ef;
-    color: #1b1b18;
+    background-color: var(--color-surface-muted);
+    border-color: var(--color-surface-muted);
+    color: var(--color-ink);
 }
 
 .ui-button--secondary:not(:disabled):hover {
-    background-color: #e3e3e0;
+    background-color: var(--color-border);
 }
 
 .ui-button--ghost {
     background-color: transparent;
     border-color: transparent;
-    color: #1b1b18;
+    color: var(--color-ink);
 }
 
 .ui-button--ghost:not(:disabled):hover {
-    background-color: #f1f1ef;
+    background-color: var(--color-surface-muted);
 }
 
 .ui-button--outline {
     background-color: transparent;
-    border-color: #1b1b18;
-    color: #1b1b18;
+    border-color: var(--color-ink);
+    color: var(--color-ink);
 }
 
 .ui-button--outline:not(:disabled):hover {
-    background-color: #1b1b18;
-    color: #fff;
+    background-color: var(--color-ink);
+    color: var(--color-canvas);
 }
 
 .ui-button--danger {
-    background-color: #c53030;
-    border-color: #c53030;
-    color: #fff;
+    background-color: var(--color-danger);
+    border-color: var(--color-danger);
+    color: var(--color-canvas);
 }
 
 .ui-button--danger:not(:disabled):hover {
     background-color: #9b2626;
 }
 
+/* Square tap target, not a circle — the reference reserves circles
+   for category/swatch icons, not interactive buttons. */
 .ui-button--icon {
-    padding: 0.5rem;
-    border-radius: 999px;
+    padding: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 0;
     background-color: transparent;
     border-color: transparent;
-    color: #1b1b18;
+    color: var(--color-ink);
+    text-transform: none;
+    letter-spacing: normal;
 }
 
 .ui-button--icon:not(:disabled):hover {
-    background-color: #f1f1ef;
+    background-color: var(--color-surface-muted);
 }
 
 .ui-button__label {

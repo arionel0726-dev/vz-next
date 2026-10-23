@@ -112,8 +112,10 @@ watch(
     width: calc(100% - 2rem);
     max-height: calc(100% - 2rem);
     overflow-y: auto;
-    background-color: #fff;
-    border-radius: 0.75rem;
+    background-color: var(--color-canvas);
+    /* Sharp corner, no exception for overlays — see the button/card
+       rule in UiButton.vue. */
+    border-radius: 0;
     padding: 1.5rem;
 }
 
@@ -126,7 +128,7 @@ watch(
     font-size: 1.25rem;
     line-height: 1;
     cursor: pointer;
-    color: #1b1b18;
+    color: var(--color-ink);
 }
 
 .ui-modal__header {

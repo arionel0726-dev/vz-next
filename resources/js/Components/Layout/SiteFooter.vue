@@ -73,9 +73,14 @@ withDefaults(defineProps<Props>(), {
 </template>
 
 <style scoped>
+/*
+ * Gold Apple reference: the footer is the one deliberately inverted,
+ * dark surface on an otherwise all-white site — not another light
+ * panel with a hairline border.
+ */
 .site-footer {
-    border-top: 1px solid #ededeb;
-    background-color: #fafaf9;
+    background-color: var(--color-footer);
+    color: var(--color-footer-text);
 }
 
 .site-footer__main {
@@ -89,9 +94,9 @@ withDefaults(defineProps<Props>(), {
 
 .site-footer__logo {
     display: inline-flex;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 1.125rem;
-    color: #1b1b18;
+    color: var(--color-footer-text);
     text-decoration: none;
 }
 
@@ -102,7 +107,7 @@ withDefaults(defineProps<Props>(), {
 .site-footer__description {
     margin-top: 0.75rem;
     font-size: 0.875rem;
-    color: #706f6c;
+    color: var(--color-footer-muted);
 }
 
 .site-footer__social {
@@ -113,13 +118,14 @@ withDefaults(defineProps<Props>(), {
 
 .site-footer__social-link {
     font-size: 0.8125rem;
-    color: #1b1b18;
+    color: var(--color-footer-text);
 }
 
 .site-footer__column-title {
-    font-weight: 600;
+    font-weight: 500;
     font-size: 0.875rem;
     margin-bottom: 0.75rem;
+    color: var(--color-footer-text);
 }
 
 .site-footer__list {
@@ -133,23 +139,23 @@ withDefaults(defineProps<Props>(), {
 
 .site-footer__link {
     font-size: 0.875rem;
-    color: #706f6c;
+    color: var(--color-footer-muted);
     text-decoration: none;
 }
 
 .site-footer__link:hover {
-    color: #1b1b18;
+    color: var(--color-footer-text);
 }
 
 .site-footer__bottom {
-    border-top: 1px solid #ededeb;
+    border-top: 1px solid var(--color-footer-border);
     padding: 1rem 1.5rem;
     text-align: center;
 }
 
 .site-footer__copyright {
     font-size: 0.8125rem;
-    color: #a1a09a;
+    color: var(--color-footer-muted);
 }
 
 @media (min-width: 64rem) {

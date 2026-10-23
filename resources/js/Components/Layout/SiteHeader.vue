@@ -122,16 +122,16 @@ const emit = defineEmits<{
     position: sticky;
     top: 0;
     z-index: 100;
-    background-color: #fff;
-    border-bottom: 1px solid #ededeb;
+    background-color: var(--color-canvas);
+    border-bottom: 1px solid var(--color-border);
 }
 
 .site-header__announcement {
     text-align: center;
     font-size: 0.8125rem;
     padding: 0.5rem 1rem;
-    background-color: #1b1b18;
-    color: #fff;
+    background-color: var(--color-ink);
+    color: var(--color-canvas);
 }
 
 .site-header__desktop {
@@ -148,9 +148,9 @@ const emit = defineEmits<{
 .site-header__logo {
     display: inline-flex;
     align-items: center;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 1.125rem;
-    color: #1b1b18;
+    color: var(--color-ink);
     text-decoration: none;
     flex-shrink: 0;
 }
@@ -168,7 +168,7 @@ const emit = defineEmits<{
 
 .site-header__nav-link {
     font-size: 0.9375rem;
-    color: #1b1b18;
+    color: var(--color-ink);
     text-decoration: none;
 }
 

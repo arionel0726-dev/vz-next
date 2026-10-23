@@ -96,8 +96,8 @@ function handleAction(key: BottomMenuAction['key']): void {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    background-color: #fff;
-    border-top: 1px solid #ededeb;
+    background-color: var(--color-canvas);
+    border-top: 1px solid var(--color-border);
     padding: 0.375rem 0.5rem calc(0.375rem + env(safe-area-inset-bottom));
 }
 
@@ -108,7 +108,7 @@ function handleAction(key: BottomMenuAction['key']): void {
     gap: 0.125rem;
     border: none;
     background: transparent;
-    color: #1b1b18;
+    color: var(--color-ink);
     text-decoration: none;
     font-size: 0.6875rem;
     padding: 0.25rem 0.5rem;

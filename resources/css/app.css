@@ -3,7 +3,45 @@
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 
+/*
+ * Design tokens — Gold Apple-style reference: near-monochrome
+ * (black/white/grey) with exactly one commercial accent (magenta,
+ * discount/promo only) and two "game" status tags (HIT/NEW) that are
+ * never used as button or text color. See each component's scoped
+ * style for how these are applied.
+ */
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    /* GraphikLCG isn't a licensed web font here; this is the nearest
+       available geometric-grotesk stand-in, same fallback shape as
+       the reference (system sans, no serif). */
+    --font-sans: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+
+    --color-canvas: #ffffff;
+    --color-ink: #000000;
+    --color-ink-soft: #1b1b18;
+    --color-muted: #706f6c;
+    --color-border: #ededeb;
+    --color-surface-muted: #ededed;
+
+    --color-footer: #141414;
+    --color-footer-text: #ffffff;
+    --color-footer-muted: #a1a09a;
+    --color-footer-border: #2a2a2a;
+
+    /* The single commercial accent — discount badges, promo callouts.
+       Never used for CTA buttons or body text. */
+    --color-accent-magenta: #ff1686;
+
+    /* "Game" status tags — product badges only, never button/text color. */
+    --color-status-hit: #f5f500;
+    --color-status-new: #d9ff3d;
+
+    --color-danger: #c53030;
+}
+
+body {
+    font-family: var(--font-sans);
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
 }
