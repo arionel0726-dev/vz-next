@@ -4,8 +4,13 @@ namespace Database\Seeders;
 
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Feature;
+use App\Models\FeatureType;
+use App\Models\FeatureValue;
 use App\Models\Product;
+use App\Models\ProductFeatureValue;
 use App\Models\ProductImage;
+use App\Models\ProductRelation;
 use App\Models\ProductVariant;
 use App\Models\ProductVariantImage;
 use Illuminate\Database\Seeder;
@@ -122,6 +127,41 @@ class CatalogSeeder extends Seeder
             'sort_order' => 2,
         ]);
 
+        // Feature values for the product detail page's "Characteristics" block.
+        $makeupFeatureType = FeatureType::create(['name' => 'Makeup']);
+
+        $finishFeature = Feature::create([
+            'feature_type_id' => $makeupFeatureType->id,
+            'name' => ['ro' => 'Finisaj', 'ru' => 'Финиш'],
+            'input_type' => 'select',
+        ]);
+
+        $matteFinish = FeatureValue::create([
+            'feature_id' => $finishFeature->id,
+            'name' => ['ro' => 'Mat', 'ru' => 'Матовый'],
+        ]);
+
+        $skinTypeFeature = Feature::create([
+            'feature_type_id' => $makeupFeatureType->id,
+            'name' => ['ro' => 'Tip piele', 'ru' => 'Тип кожи'],
+            'input_type' => 'select',
+        ]);
+
+        $allSkinTypes = FeatureValue::create([
+            'feature_id' => $skinTypeFeature->id,
+            'name' => ['ro' => 'Toate tipurile', 'ru' => 'Все типы'],
+        ]);
+
+        ProductFeatureValue::create([
+            'product_id' => $lipstick->id,
+            'feature_value_id' => $matteFinish->id,
+        ]);
+
+        ProductFeatureValue::create([
+            'product_id' => $lipstick->id,
+            'feature_value_id' => $allSkinTypes->id,
+        ]);
+
         $perfumeProduct = Product::create([
             'category_id' => $perfume->id,
             'brand_id' => $vizajeParfum->id,
@@ -189,6 +229,11 @@ class CatalogSeeder extends Seeder
             'path' => 'products/paleta-farduri/main.jpg',
         ]);
 
+        ProductFeatureValue::create([
+            'product_id' => $eyeshadow->id,
+            'feature_value_id' => $matteFinish->id,
+        ]);
+
         $cologne = Product::create([
             'category_id' => $perfume->id,
             'brand_id' => $vizajeParfum->id,
@@ -236,6 +281,32 @@ class CatalogSeeder extends Seeder
         ProductImage::create([
             'product_id' => $settingSpray->id,
             'path' => 'products/spray-de-fixare/main.jpg',
+        ]);
+
+        // Related products for the product detail page's "You may also
+        // like" block.
+        ProductRelation::create([
+            'product_id' => $lipstick->id,
+            'related_product_id' => $eyeshadow->id,
+            'type' => 'related',
+        ]);
+
+        ProductRelation::create([
+            'product_id' => $lipstick->id,
+            'related_product_id' => $settingSpray->id,
+            'type' => 'related',
+        ]);
+
+        ProductRelation::create([
+            'product_id' => $faceCream->id,
+            'related_product_id' => $vitaminSerum->id,
+            'type' => 'related',
+        ]);
+
+        ProductRelation::create([
+            'product_id' => $faceCream->id,
+            'related_product_id' => $handCream->id,
+            'type' => 'related',
         ]);
 
         // Draft product, kept unpublished to exercise the catalog's

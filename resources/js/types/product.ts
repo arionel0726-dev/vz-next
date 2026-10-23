@@ -28,3 +28,44 @@ export interface ProductVariantSummary {
     oldPrice?: number;
     inStock?: boolean;
 }
+
+export interface ProductVariantDetail {
+    id: number | string;
+    label?: string;
+    price: number;
+    oldPrice?: number;
+    inStock: boolean;
+    colorHex?: string[];
+    volume?: string | null;
+    image?: string | null;
+}
+
+export interface ProductFeatureGroup {
+    feature: string;
+    values: string[];
+}
+
+export interface ProductDetail {
+    id: number | string;
+    slug: string;
+    title: string;
+    brand?: string;
+    category?: string;
+    image: string;
+    gallery: string[];
+    description?: string | null;
+    text?: string | null;
+    price: number;
+    oldPrice?: number;
+    bonusAmount?: number;
+    currency?: string;
+    isNew?: boolean;
+    isSale?: boolean;
+    salePercent?: number;
+    isHit?: boolean;
+    inStock: boolean;
+    hasVariants: boolean;
+    variants: ProductVariantDetail[];
+    featureValues: ProductFeatureGroup[];
+    relatedProducts: Product[];
+}
