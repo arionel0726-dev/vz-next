@@ -1,11 +1,15 @@
 <script setup lang="ts">
+import UiButton from '../UI/UiButton.vue';
 import type { CartTotals } from '../../types/cart';
 
 interface Props {
     totals: CartTotals;
+    showCheckoutButton?: boolean;
 }
 
-defineProps<Props>();
+withDefaults(defineProps<Props>(), {
+    showCheckoutButton: true,
+});
 </script>
 
 <template>
@@ -31,6 +35,15 @@ defineProps<Props>();
             <span>Total</span>
             <strong>{{ totals.total.toFixed(2) }} MDL</strong>
         </div>
+
+        <UiButton
+            v-if="showCheckoutButton"
+            href="/checkout"
+            variant="primary"
+            class="cart-summary__checkout"
+        >
+            Checkout
+        </UiButton>
     </section>
 </template>
 
@@ -74,5 +87,10 @@ defineProps<Props>();
     padding-top: 0.75rem;
     border-top: 1px solid #ededeb;
     font-size: 1rem;
+}
+
+.cart-summary__checkout {
+    width: 100%;
+    justify-content: center;
 }
 </style>
