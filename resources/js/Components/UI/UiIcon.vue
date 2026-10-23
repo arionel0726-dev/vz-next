@@ -9,7 +9,10 @@ export type IconName =
     | 'minus'
     | 'search'
     | 'cart'
+    | 'bag'
     | 'heart'
+    | 'heart-filled'
+    | 'lightning'
     | 'user'
     | 'menu'
     | 'home';
@@ -134,6 +137,42 @@ withDefaults(defineProps<Props>(), {
                 stroke="currentColor"
                 stroke-width="1.45"
                 stroke-linecap="round"
+                stroke-linejoin="round"
+            />
+
+            <path
+                v-else-if="name === 'heart-filled'"
+                d="M20.84 4.61C19.81 3.58 18.41 3 16.94 3C15.48 3 14.08 3.58 13.04 4.61L12 5.65L10.96 4.61C9.93 3.58 8.53 3 7.07 3C5.61 3 4.21 3.58 3.18 4.61C2.15 5.64 1.57 7.04 1.57 8.5C1.57 9.96 2.15 11.36 3.18 12.39L12 21.21L20.84 12.39C21.86 11.36 22.45 9.96 22.45 8.5C22.45 7.04 21.86 5.64 20.84 4.61Z"
+                fill="currentColor"
+                stroke="currentColor"
+                stroke-width="1.45"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            />
+
+            <template v-else-if="name === 'bag'">
+                <path
+                    d="M6 8H18L19 21H5L6 8Z"
+                    fill="currentColor"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linejoin="round"
+                />
+
+                <path
+                    d="M9 8V6.5C9 4.57 10.34 3 12 3C13.66 3 15 4.57 15 6.5V8"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                />
+            </template>
+
+            <path
+                v-else-if="name === 'lightning'"
+                d="M13 2L4 14H11L10 22L20 9H13L13 2Z"
+                fill="currentColor"
+                stroke="currentColor"
+                stroke-width="1.2"
                 stroke-linejoin="round"
             />
 

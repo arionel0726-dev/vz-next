@@ -47,7 +47,12 @@ const mockProducts = ref<Product[]>([
         price: 420,
         bonusAmount: 42,
         isNew: true,
+        isFlash: true,
         inStock: true,
+        variants: [
+            { id: 1, label: '30ml', price: 420, inStock: true },
+            { id: 2, label: '50ml', price: 560, inStock: true },
+        ],
     },
     {
         id: 2,
@@ -61,7 +66,13 @@ const mockProducts = ref<Product[]>([
         salePercent: 25,
         isSale: true,
         isHit: true,
+        isExclusive: true,
         inStock: true,
+        variants: [
+            { id: 1, label: 'Red', price: 180, inStock: true, colorHex: ['#C21807'] },
+            { id: 2, label: 'Nude', price: 180, inStock: false, colorHex: ['#C9947A'] },
+            { id: 3, label: 'Berry/Plum', price: 180, inStock: true, colorHex: ['#8A1F4D', '#4A2040'] },
+        ],
     },
     {
         id: 3,
@@ -71,6 +82,7 @@ const mockProducts = ref<Product[]>([
         category: 'Perfume',
         image: img3,
         price: 890,
+        isGift: true,
         inStock: false,
     },
 ]);

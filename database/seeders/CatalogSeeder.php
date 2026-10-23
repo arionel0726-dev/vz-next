@@ -67,6 +67,7 @@ class CatalogSeeder extends Seeder
             'price' => 420,
             'stock' => 24,
             'is_new' => true,
+            'is_flash' => true,
             'is_published' => true,
         ]);
 
@@ -85,6 +86,7 @@ class CatalogSeeder extends Seeder
             'discount_price' => 180,
             'stock' => 15,
             'is_best_selling' => true,
+            'is_exclusive' => true,
             'is_published' => true,
         ]);
 
@@ -170,6 +172,7 @@ class CatalogSeeder extends Seeder
             'slug' => ['ro' => 'apa-de-parfum-50ml', 'ru' => 'parfyumernaya-voda-50ml'],
             'price' => 890,
             'stock' => 0,
+            'is_gift' => true,
             'is_published' => true,
         ]);
 

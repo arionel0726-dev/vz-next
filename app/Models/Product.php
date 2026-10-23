@@ -35,6 +35,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
     'volume',
     'is_new',
     'is_best_selling',
+    'is_flash',
+    'is_gift',
+    'is_exclusive',
     'is_published',
     'sort_order',
 ])]
@@ -66,6 +69,9 @@ class Product extends Model
             'sex' => 'integer',
             'is_new' => 'boolean',
             'is_best_selling' => 'boolean',
+            'is_flash' => 'boolean',
+            'is_gift' => 'boolean',
+            'is_exclusive' => 'boolean',
             'is_published' => 'boolean',
             'sort_order' => 'integer',
         ];

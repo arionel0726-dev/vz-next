@@ -1,17 +1,23 @@
 <script setup lang="ts">
-export type BadgeVariant = 'new' | 'sale' | 'hit' | 'bonus' | 'custom';
+export type BadgeVariant = 'new' | 'sale' | 'hit' | 'bonus' | 'custom' | 'flash' | 'exclusive' | 'gift';
 
 interface Props {
     variant?: BadgeVariant;
+    /** Square, icon-only tag (e.g. the flash-deal badge) instead of a text label. */
+    iconOnly?: boolean;
 }
 
 withDefaults(defineProps<Props>(), {
     variant: 'custom',
+    iconOnly: false,
 });
 </script>
 
 <template>
-    <span class="ui-badge" :class="`ui-badge--${variant}`">
+    <span
+        class="ui-badge"
+        :class="[`ui-badge--${variant}`, { 'ui-badge--icon-only': iconOnly }]"
+    >
         <slot />
     </span>
 </template>
@@ -57,5 +63,25 @@ withDefaults(defineProps<Props>(), {
 .ui-badge--custom {
     background-color: var(--color-ink);
     color: var(--color-canvas);
+}
+
+.ui-badge--flash {
+    background-color: var(--color-badge-flash);
+    color: var(--color-canvas);
+}
+
+.ui-badge--exclusive {
+    background-color: var(--color-badge-exclusive);
+    color: var(--color-canvas);
+}
+
+.ui-badge--gift {
+    background-color: var(--color-status-new);
+    color: var(--color-ink);
+}
+
+.ui-badge--icon-only {
+    padding: 0.25rem;
+    line-height: 1;
 }
 </style>

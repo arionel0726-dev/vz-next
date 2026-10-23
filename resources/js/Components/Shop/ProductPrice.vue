@@ -4,12 +4,16 @@ interface Props {
     oldPrice?: number;
     bonusAmount?: number;
     currency?: string;
+    /** When set alongside oldPrice, shows a "N% off" line above the price
+        (reference layout) instead of the strikethrough price inline. */
+    salePercent?: number;
 }
 
 const props = withDefaults(defineProps<Props>(), {
     oldPrice: undefined,
     bonusAmount: undefined,
     currency: 'MDL',
+    salePercent: undefined,
 });
 
 function formatAmount(value: number): string {
@@ -24,12 +28,17 @@ const hasBonus = !hasDiscount && (props.bonusAmount ?? 0) > 0;
 
 <template>
     <div class="product-price" :class="{ 'has-discount': hasDiscount }">
+        <p v-if="hasDiscount && salePercent" class="product-price__discount-line">
+            {{ salePercent }}% off
+            <span class="product-price__old">{{ formatAmount(oldPrice as number) }} {{ currency }}</span>
+        </p>
+
         <div class="product-price__row">
             <span class="product-price__current">
                 {{ formatAmount(price) }} {{ currency }}
             </span>
 
-            <span v-if="hasDiscount" class="product-price__old">
+            <span v-if="hasDiscount && !salePercent" class="product-price__old">
                 {{ formatAmount(oldPrice as number) }} {{ currency }}
             </span>
         </div>
@@ -47,6 +56,14 @@ const hasBonus = !hasDiscount && (props.bonusAmount ?? 0) > 0;
     gap: 0.25rem;
 }
 
+.product-price__discount-line {
+    display: flex;
+    align-items: baseline;
+    gap: 0.375rem;
+    font-size: 0.75rem;
+    color: var(--color-muted);
+}
+
 .product-price__row {
     display: flex;
     align-items: baseline;
@@ -56,21 +73,19 @@ const hasBonus = !hasDiscount && (props.bonusAmount ?? 0) > 0;
 .product-price__current {
     font-size: 1rem;
     font-weight: 600;
-    color: #1b1b18;
-}
-
-.has-discount .product-price__current {
-    color: #c53030;
+    /* The reference keeps the price black even when discounted — color
+       is reserved for badges, never price/body text. */
+    color: var(--color-ink);
 }
 
 .product-price__old {
     font-size: 0.8125rem;
-    color: #a1a09a;
+    color: var(--color-muted);
     text-decoration: line-through;
 }
 
 .product-price__bonus {
     font-size: 0.75rem;
-    color: #38469e;
+    color: var(--color-muted);
 }
 </style>

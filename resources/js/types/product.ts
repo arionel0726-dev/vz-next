@@ -15,6 +15,12 @@ export interface Product {
     isSale?: boolean;
     salePercent?: number;
     isHit?: boolean;
+    /** Time-limited deal flag — rendered as an icon-only badge. */
+    isFlash?: boolean;
+    /** "Comes with a free gift" flag. */
+    isGift?: boolean;
+    /** Exclusive to this store. */
+    isExclusive?: boolean;
     isLiked?: boolean;
     inStock?: boolean;
     hasVariants?: boolean;
@@ -27,6 +33,8 @@ export interface ProductVariantSummary {
     price: number;
     oldPrice?: number;
     inStock?: boolean;
+    /** Swatch color(s) — two values render as a split/bicolor swatch. */
+    colorHex?: string[] | null;
 }
 
 export interface ProductVariantDetail {

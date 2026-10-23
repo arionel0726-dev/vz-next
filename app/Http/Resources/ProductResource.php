@@ -57,6 +57,9 @@ class ProductResource extends JsonResource
             'isSale' => $hasDiscount,
             'salePercent' => $salePercent,
             'isHit' => (bool) $this->is_best_selling,
+            'isFlash' => (bool) $this->is_flash,
+            'isGift' => (bool) $this->is_gift,
+            'isExclusive' => (bool) $this->is_exclusive,
             'inStock' => (int) $this->stock > 0,
             'hasVariants' => $this->whenLoaded(
                 'variants',
@@ -81,6 +84,7 @@ class ProductResource extends JsonResource
                         'price' => $variantHasDiscount ? $variantDiscount : $variantPrice,
                         'oldPrice' => $variantHasDiscount ? $variantPrice : null,
                         'inStock' => (int) $variant->stock > 0,
+                        'colorHex' => $variant->color_hex_list,
                     ];
                 })->values()->all()
             ),

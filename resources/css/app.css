@@ -6,9 +6,10 @@
 /*
  * Design tokens — Gold Apple-style reference: near-monochrome
  * (black/white/grey) with exactly one commercial accent (magenta,
- * discount/promo only) and two "game" status tags (HIT/NEW) that are
- * never used as button or text color. See each component's scoped
- * style for how these are applied.
+ * discount/promo only) and a handful of "game" status tags
+ * (HIT/NEW/FLASH/EXCLUSIVE/GIFT) that are never used as button or
+ * text color — product-card badges only. See each component's
+ * scoped style for how these are applied.
  */
 @theme {
     /* GraphikLCG isn't a licensed web font here; this is the nearest
@@ -33,9 +34,18 @@
        Never used for CTA buttons or body text. */
     --color-accent-magenta: #ff1686;
 
-    /* "Game" status tags — product badges only, never button/text color. */
+    /* "Game" status tags — product-card badges only, never a button or
+       text color. Sampled from the product-card reference screenshots
+       (visually estimated, not computed). */
     --color-status-hit: #f5f500;
     --color-status-new: #d9ff3d;
+    --color-badge-flash: #ff6a1a;
+    --color-badge-exclusive: #5b2a9e;
+
+    /* Category/kicker label on the product card — a warm muted tone,
+       distinct from the neutral grey used for other secondary text.
+       Visually estimated from the reference screenshots. */
+    --color-kicker: #9c7b5e;
 
     --color-danger: #c53030;
 }
