@@ -2,23 +2,12 @@
 import { Link } from '@inertiajs/vue3';
 import SiteLayout from '../../Layouts/SiteLayout.vue';
 import UiIcon from '../../Components/UI/UiIcon.vue';
-import type { NavItem, FooterColumn } from '../../types/nav';
+import { siteNavItems, siteFooterColumns } from '../../constants/navigation';
 
-const navItems: NavItem[] = [
-    { label: 'Catalog', url: '/catalog' },
-    { label: 'Cart', url: '/cart' },
-];
-
-const footerColumns: FooterColumn[] = [
-    {
-        title: 'Company',
-        links: [{ label: 'About', url: '#' }],
-    },
-];
 </script>
 
 <template>
-    <SiteLayout :nav-items="navItems" :footer-columns="footerColumns">
+    <SiteLayout :nav-items="siteNavItems" :footer-columns="siteFooterColumns">
         <div class="account-page">
             <h1 class="account-page__title">My account</h1>
 

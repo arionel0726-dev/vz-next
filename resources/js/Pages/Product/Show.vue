@@ -7,8 +7,8 @@ import ProductInfo from '../../Components/Shop/ProductInfo.vue';
 import ProductVariantSelector from '../../Components/Shop/ProductVariantSelector.vue';
 import ProductFeatures from '../../Components/Shop/ProductFeatures.vue';
 import RelatedProducts from '../../Components/Shop/RelatedProducts.vue';
+import { siteNavItems, siteFooterColumns, siteAnnouncement } from '../../constants/navigation';
 import type { Product, ProductDetail } from '../../types/product';
-import type { NavItem, FooterColumn } from '../../types/nav';
 
 interface Props {
     product: ProductDetail;
@@ -80,41 +80,13 @@ function handleRelatedOpen(product: Product): void {
     router.visit(`/product/${product.slug}`);
 }
 
-function handleRelatedToggleWishlist(product: Product): void {
-    console.log('toggle-wishlist', product);
-}
-
-const navItems: NavItem[] = [
-    { label: 'Catalog', url: '/catalog' },
-    { label: 'Brands', url: '#' },
-    { label: 'Offers', url: '#' },
-    { label: 'Contacts', url: '#' },
-];
-
-const footerColumns: FooterColumn[] = [
-    {
-        title: 'Company',
-        links: [
-            { label: 'About', url: '#' },
-            { label: 'Contacts', url: '#' },
-        ],
-    },
-    {
-        title: 'Help',
-        links: [
-            { label: 'Delivery', url: '#' },
-            { label: 'Returns', url: '#' },
-        ],
-    },
-];
 </script>
 
 <template>
     <SiteLayout
-        :nav-items="navItems"
-        :footer-columns="footerColumns"
-        announcement="Free delivery from 500 MDL"
-        :wishlist-count="1"
+        :nav-items="siteNavItems"
+        :footer-columns="siteFooterColumns"
+        :announcement="siteAnnouncement"
     >
         <div class="product-page">
             <div class="product-page__main">
@@ -156,9 +128,9 @@ const footerColumns: FooterColumn[] = [
 
             <RelatedProducts
                 :products="product.relatedProducts"
+                :show-wishlist="false"
                 @add-to-cart="handleRelatedAddToCart"
                 @open="handleRelatedOpen"
-                @toggle-wishlist="handleRelatedToggleWishlist"
             />
         </div>
     </SiteLayout>

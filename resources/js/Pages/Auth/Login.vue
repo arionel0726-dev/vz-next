@@ -3,7 +3,7 @@ import { useForm, Link } from '@inertiajs/vue3';
 import SiteLayout from '../../Layouts/SiteLayout.vue';
 import UiInput from '../../Components/UI/UiInput.vue';
 import UiButton from '../../Components/UI/UiButton.vue';
-import type { NavItem, FooterColumn } from '../../types/nav';
+import { siteNavItems, siteFooterColumns } from '../../constants/navigation';
 
 interface Props {
     status?: string | null;
@@ -22,21 +22,10 @@ function submit(): void {
     });
 }
 
-const navItems: NavItem[] = [
-    { label: 'Catalog', url: '/catalog' },
-    { label: 'Cart', url: '/cart' },
-];
-
-const footerColumns: FooterColumn[] = [
-    {
-        title: 'Company',
-        links: [{ label: 'About', url: '#' }],
-    },
-];
 </script>
 
 <template>
-    <SiteLayout :nav-items="navItems" :footer-columns="footerColumns">
+    <SiteLayout :nav-items="siteNavItems" :footer-columns="siteFooterColumns">
         <div class="auth-page">
             <h1 class="auth-page__title">Log in</h1>
 

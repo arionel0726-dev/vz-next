@@ -2,7 +2,7 @@
 import SiteLayout from '../../Layouts/SiteLayout.vue';
 import UiBadge from '../../Components/UI/UiBadge.vue';
 import UiButton from '../../Components/UI/UiButton.vue';
-import type { NavItem, FooterColumn } from '../../types/nav';
+import { siteNavItems, siteFooterColumns } from '../../constants/navigation';
 
 interface OrderItem {
     productName: string;
@@ -32,21 +32,10 @@ interface Props {
 
 defineProps<Props>();
 
-const navItems: NavItem[] = [
-    { label: 'Catalog', url: '/catalog' },
-    { label: 'Cart', url: '/cart' },
-];
-
-const footerColumns: FooterColumn[] = [
-    {
-        title: 'Company',
-        links: [{ label: 'About', url: '#' }],
-    },
-];
 </script>
 
 <template>
-    <SiteLayout :nav-items="navItems" :footer-columns="footerColumns">
+    <SiteLayout :nav-items="siteNavItems" :footer-columns="siteFooterColumns">
         <div class="confirmation-page">
             <h1 class="confirmation-page__title">Thank you for your order!</h1>
 

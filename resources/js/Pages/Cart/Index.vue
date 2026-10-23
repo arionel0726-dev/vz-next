@@ -5,8 +5,8 @@ import CartItem from '../../Components/Shop/CartItem.vue';
 import CartSummary from '../../Components/Shop/CartSummary.vue';
 import CartEmpty from '../../Components/Shop/CartEmpty.vue';
 import UiButton from '../../Components/UI/UiButton.vue';
+import { siteNavItems, siteFooterColumns, siteAnnouncement } from '../../constants/navigation';
 import type { CartItem as CartItemType, CartTotals } from '../../types/cart';
-import type { NavItem, FooterColumn } from '../../types/nav';
 
 interface Props {
     items: CartItemType[];
@@ -27,36 +27,13 @@ function handleClear(): void {
     router.delete('/cart', { preserveScroll: true });
 }
 
-const navItems: NavItem[] = [
-    { label: 'Catalog', url: '/catalog' },
-    { label: 'Brands', url: '#' },
-    { label: 'Offers', url: '#' },
-    { label: 'Contacts', url: '#' },
-];
-
-const footerColumns: FooterColumn[] = [
-    {
-        title: 'Company',
-        links: [
-            { label: 'About', url: '#' },
-            { label: 'Contacts', url: '#' },
-        ],
-    },
-    {
-        title: 'Help',
-        links: [
-            { label: 'Delivery', url: '#' },
-            { label: 'Returns', url: '#' },
-        ],
-    },
-];
 </script>
 
 <template>
     <SiteLayout
-        :nav-items="navItems"
-        :footer-columns="footerColumns"
-        announcement="Free delivery from 500 MDL"
+        :nav-items="siteNavItems"
+        :footer-columns="siteFooterColumns"
+        :announcement="siteAnnouncement"
     >
         <div class="cart-page">
             <h1 class="cart-page__title">Cart</h1>

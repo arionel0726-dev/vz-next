@@ -5,7 +5,7 @@ import UiInput from '../../Components/UI/UiInput.vue';
 import UiButton from '../../Components/UI/UiButton.vue';
 import CartSummary from '../../Components/Shop/CartSummary.vue';
 import type { CartItem, CartTotals } from '../../types/cart';
-import type { NavItem, FooterColumn } from '../../types/nav';
+import { siteNavItems, siteFooterColumns } from '../../constants/navigation';
 
 interface Contact {
     name: string;
@@ -33,21 +33,10 @@ function submit(): void {
     form.post('/checkout');
 }
 
-const navItems: NavItem[] = [
-    { label: 'Catalog', url: '/catalog' },
-    { label: 'Cart', url: '/cart' },
-];
-
-const footerColumns: FooterColumn[] = [
-    {
-        title: 'Company',
-        links: [{ label: 'About', url: '#' }],
-    },
-];
 </script>
 
 <template>
-    <SiteLayout :nav-items="navItems" :footer-columns="footerColumns">
+    <SiteLayout :nav-items="siteNavItems" :footer-columns="siteFooterColumns">
         <div class="checkout-page">
             <h1 class="checkout-page__title">Checkout</h1>
 

@@ -7,6 +7,7 @@ const MAX_VISIBLE_SWATCHES = 2;
 import UiBadge from '../UI/UiBadge.vue';
 import UiIcon from '../UI/UiIcon.vue';
 import ProductPrice from './ProductPrice.vue';
+import { resolveMediaUrl } from '../../utils/media';
 import type { Product } from '../../types/product';
 
 export type ProductCardVariant = 'grid' | 'slider' | 'compact';
@@ -59,7 +60,7 @@ function swatchBackground(colorHex?: string[] | null): string | undefined {
             >
                 <img
                     class="product-card__image"
-                    :src="product.image"
+                    :src="resolveMediaUrl(product.image)"
                     :alt="product.title"
                     loading="lazy"
                 >

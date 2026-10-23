@@ -5,13 +5,13 @@ import SiteLayout from '../../Layouts/SiteLayout.vue';
 import CatalogToolbar from '../../Components/Shop/CatalogToolbar.vue';
 import ProductGrid from '../../Components/Shop/ProductGrid.vue';
 import UiButton from '../../Components/UI/UiButton.vue';
+import { siteNavItems, siteFooterColumns, siteAnnouncement } from '../../constants/navigation';
 import type { Product } from '../../types/product';
 import type {
     CatalogFilters,
     CatalogPagination,
     CatalogViewMode,
 } from '../../types/catalog';
-import type { NavItem, FooterColumn } from '../../types/nav';
 
 interface Props {
     products: Product[];
@@ -93,48 +93,20 @@ function handleAddToCart(product: Product): void {
 }
 
 function handleOpen(product: Product): void {
-    console.log('open', product);
-}
-
-function handleToggleWishlist(product: Product): void {
-    console.log('toggle-wishlist', product);
+    router.visit(`/product/${product.slug}`);
 }
 
 function handleOpenFilters(): void {
-    console.log('open-filters');
+    // Filter drawer isn't built yet — the toolbar's filter button is a
+    // no-op until it lands.
 }
-
-const navItems: NavItem[] = [
-    { label: 'Catalog', url: '/catalog' },
-    { label: 'Brands', url: '#' },
-    { label: 'Offers', url: '#' },
-    { label: 'Contacts', url: '#' },
-];
-
-const footerColumns: FooterColumn[] = [
-    {
-        title: 'Company',
-        links: [
-            { label: 'About', url: '#' },
-            { label: 'Contacts', url: '#' },
-        ],
-    },
-    {
-        title: 'Help',
-        links: [
-            { label: 'Delivery', url: '#' },
-            { label: 'Returns', url: '#' },
-        ],
-    },
-];
 </script>
 
 <template>
     <SiteLayout
-        :nav-items="navItems"
-        :footer-columns="footerColumns"
-        announcement="Free delivery from 500 MDL"
-        :wishlist-count="1"
+        :nav-items="siteNavItems"
+        :footer-columns="siteFooterColumns"
+        :announcement="siteAnnouncement"
     >
         <div class="catalog-page">
             <h1 class="catalog-page__title">Catalog</h1>
@@ -152,9 +124,9 @@ const footerColumns: FooterColumn[] = [
             <ProductGrid
                 :products="props.products"
                 :view-mode="viewMode"
+                :show-wishlist="false"
                 @add-to-cart="handleAddToCart"
                 @open="handleOpen"
-                @toggle-wishlist="handleToggleWishlist"
             />
 
             <div

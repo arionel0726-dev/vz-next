@@ -4,14 +4,16 @@ import type { Product } from '../../types/product';
 
 interface Props {
     products: Product[];
+    showWishlist?: boolean;
 }
 
-defineProps<Props>();
+withDefaults(defineProps<Props>(), {
+    showWishlist: true,
+});
 
 const emit = defineEmits<{
     'add-to-cart': [product: Product];
     open: [product: Product];
-    'toggle-wishlist': [product: Product];
 }>();
 </script>
 
@@ -25,9 +27,9 @@ const emit = defineEmits<{
                 :key="product.id"
                 :product="product"
                 variant="slider"
+                :show-wishlist="showWishlist"
                 @add-to-cart="emit('add-to-cart', product)"
                 @open="emit('open', product)"
-                @toggle-wishlist="emit('toggle-wishlist', product)"
             />
         </div>
     </section>

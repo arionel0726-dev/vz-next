@@ -14,6 +14,7 @@ use App\Models\ProductRelation;
 use App\Models\ProductVariant;
 use App\Models\ProductVariantImage;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
 
 class CatalogSeeder extends Seeder
 {
@@ -75,6 +76,7 @@ class CatalogSeeder extends Seeder
             'product_id' => $faceCream->id,
             'path' => 'products/crema-hidratanta/main.jpg',
         ]);
+        $this->placeholderImage('products/crema-hidratanta/main.jpg', '#E3E3E0', 'VIZAJE LAB');
 
         $lipstick = Product::create([
             'category_id' => $makeup->id,
@@ -95,12 +97,14 @@ class CatalogSeeder extends Seeder
             'path' => 'products/ruj-mat/main.jpg',
             'sort_order' => 1,
         ]);
+        $this->placeholderImage('products/ruj-mat/main.jpg', '#D8C4C9', 'NICA BEAUTY');
 
         ProductImage::create([
             'product_id' => $lipstick->id,
             'path' => 'products/ruj-mat/alt.jpg',
             'sort_order' => 2,
         ]);
+        $this->placeholderImage('products/ruj-mat/alt.jpg', '#EAD8D4', 'RUJ MAT');
 
         $redVariant = ProductVariant::create([
             'product_id' => $lipstick->id,
@@ -117,6 +121,7 @@ class CatalogSeeder extends Seeder
             'product_variant_id' => $redVariant->id,
             'path' => 'products/ruj-mat/red.jpg',
         ]);
+        $this->placeholderImage('products/ruj-mat/red.jpg', '#C21807', 'ROSU');
 
         ProductVariant::create([
             'product_id' => $lipstick->id,
@@ -180,6 +185,7 @@ class CatalogSeeder extends Seeder
             'product_id' => $perfumeProduct->id,
             'path' => 'products/apa-de-parfum-50ml/main.jpg',
         ]);
+        $this->placeholderImage('products/apa-de-parfum-50ml/main.jpg', '#D8C9A3', 'VIZAJE PARFUM');
 
         $bodyLotion = Product::create([
             'category_id' => $skincare->id,
@@ -197,6 +203,7 @@ class CatalogSeeder extends Seeder
             'product_id' => $bodyLotion->id,
             'path' => 'products/lotiune-de-corp/main.jpg',
         ]);
+        $this->placeholderImage('products/lotiune-de-corp/main.jpg', '#CDE3D8', 'VIZAJE LAB');
 
         $vitaminSerum = Product::create([
             'category_id' => $skincare->id,
@@ -214,6 +221,7 @@ class CatalogSeeder extends Seeder
             'product_id' => $vitaminSerum->id,
             'path' => 'products/ser-vitamina-c/main.jpg',
         ]);
+        $this->placeholderImage('products/ser-vitamina-c/main.jpg', '#F5E6A8', 'VIZAJE LAB');
 
         $eyeshadow = Product::create([
             'category_id' => $makeup->id,
@@ -231,6 +239,7 @@ class CatalogSeeder extends Seeder
             'product_id' => $eyeshadow->id,
             'path' => 'products/paleta-farduri/main.jpg',
         ]);
+        $this->placeholderImage('products/paleta-farduri/main.jpg', '#E8C4D8', 'NICA BEAUTY');
 
         ProductFeatureValue::create([
             'product_id' => $eyeshadow->id,
@@ -252,6 +261,7 @@ class CatalogSeeder extends Seeder
             'product_id' => $cologne->id,
             'path' => 'products/apa-de-colonie-barbati/main.jpg',
         ]);
+        $this->placeholderImage('products/apa-de-colonie-barbati/main.jpg', '#B8C4D8', 'VIZAJE PARFUM');
 
         $handCream = Product::create([
             'category_id' => $skincare->id,
@@ -268,6 +278,7 @@ class CatalogSeeder extends Seeder
             'product_id' => $handCream->id,
             'path' => 'products/crema-de-maini/main.jpg',
         ]);
+        $this->placeholderImage('products/crema-de-maini/main.jpg', '#E8DCC8', 'VIZAJE LAB');
 
         $settingSpray = Product::create([
             'category_id' => $makeup->id,
@@ -285,6 +296,7 @@ class CatalogSeeder extends Seeder
             'product_id' => $settingSpray->id,
             'path' => 'products/spray-de-fixare/main.jpg',
         ]);
+        $this->placeholderImage('products/spray-de-fixare/main.jpg', '#D4E0E8', 'NICA BEAUTY');
 
         // Related products for the product detail page's "You may also
         // like" block.
@@ -324,5 +336,48 @@ class CatalogSeeder extends Seeder
             'stock' => 0,
             'is_published' => false,
         ]);
+    }
+
+    /**
+     * Generates a flat-color JPEG with a short label on the "public"
+     * disk at the given storage path, if one doesn't already exist
+     * there. There are no real product photos yet (no admin upload
+     * feature), so this keeps every seeded ProductImage/
+     * ProductVariantImage row backed by a real, loadable file instead
+     * of a path that 404s.
+     */
+    private function placeholderImage(string $path, string $hexColor, string $label): void
+    {
+        if (Storage::disk('public')->exists($path)) {
+            return;
+        }
+
+        [$red, $green, $blue] = sscanf($hexColor, '#%02x%02x%02x');
+
+        $width = 800;
+        $height = 800;
+
+        $image = imagecreatetruecolor($width, $height);
+        $background = imagecolorallocate($image, $red, $green, $blue);
+        imagefilledrectangle($image, 0, 0, $width, $height, $background);
+
+        $textColor = imagecolorallocate($image, 255, 255, 255);
+        $font = 5;
+        $textWidth = imagefontwidth($font) * strlen($label);
+        imagestring(
+            $image,
+            $font,
+            (int) (($width - $textWidth) / 2),
+            (int) ($height / 2),
+            $label,
+            $textColor,
+        );
+
+        ob_start();
+        imagejpeg($image, null, 85);
+        $contents = ob_get_clean();
+        imagedestroy($image);
+
+        Storage::disk('public')->put($path, $contents);
     }
 }

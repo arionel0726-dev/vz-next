@@ -2,6 +2,7 @@
 import UiButton from '../UI/UiButton.vue';
 import UiIcon from '../UI/UiIcon.vue';
 import ProductPrice from './ProductPrice.vue';
+import { resolveMediaUrl } from '../../utils/media';
 import type { CartItem } from '../../types/cart';
 
 interface Props {
@@ -33,7 +34,7 @@ function increment(): void {
         <img
             v-if="item.product.image"
             class="cart-item__image"
-            :src="item.product.image"
+            :src="resolveMediaUrl(item.product.image)"
             :alt="item.product.title"
         >
 

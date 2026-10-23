@@ -6,10 +6,12 @@ import type { CatalogViewMode } from '../../types/catalog';
 interface Props {
     products: Product[];
     viewMode?: CatalogViewMode;
+    showWishlist?: boolean;
 }
 
 withDefaults(defineProps<Props>(), {
     viewMode: 'grid',
+    showWishlist: true,
 });
 
 const emit = defineEmits<{
@@ -26,6 +28,7 @@ const emit = defineEmits<{
             :key="product.id"
             :product="product"
             :variant="viewMode === 'list' ? 'compact' : 'grid'"
+            :show-wishlist="showWishlist"
             @add-to-cart="emit('add-to-cart', product)"
             @open="emit('open', product)"
             @toggle-wishlist="emit('toggle-wishlist', product)"

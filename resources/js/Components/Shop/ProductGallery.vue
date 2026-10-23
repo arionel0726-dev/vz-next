@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
 import UiIcon from '../UI/UiIcon.vue';
+import { resolveMediaUrl } from '../../utils/media';
 
 interface Props {
     images: string[];
@@ -53,7 +54,7 @@ function next(): void {
             <img
                 v-if="images.length"
                 class="product-gallery__image"
-                :src="images[activeIndex]"
+                :src="resolveMediaUrl(images[activeIndex])"
                 :alt="alt"
             >
 
@@ -80,7 +81,7 @@ function next(): void {
                 :aria-current="index === activeIndex"
                 @click="select(index)"
             >
-                <img :src="image" :alt="alt">
+                <img :src="resolveMediaUrl(image)" :alt="alt">
             </button>
         </div>
     </div>
