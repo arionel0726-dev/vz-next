@@ -9,6 +9,7 @@ import UiIcon from '../Components/UI/UiIcon.vue';
 import type { DrawerPosition } from '../Components/UI/UiDrawer.vue';
 import ProductCard from '../Components/Shop/ProductCard.vue';
 import Hero from '../Components/Home/Hero.vue';
+import ProductSlider from '../Components/Home/ProductSlider.vue';
 import type { HeroSlide } from '../Components/Home/Hero.vue';
 import type { Product } from '../types/product';
 import SiteLayout from '../Layouts/SiteLayout.vue';
@@ -70,6 +71,154 @@ const heroSlides: HeroSlide[] = [
         images: [heroPlaceholder('#fbe3e0'), heroPlaceholder('#f6c9c3')],
         background: 'linear-gradient(135deg, #fdeeec 0%, #fad9d4 100%)',
     },
+];
+
+/*
+ * No homepage sections/merchandising backend exists yet -- these
+ * three rows are mock products for the ProductSlider component,
+ * standing in for "discounts" / "new arrivals" / "hits" until that
+ * exists.
+ */
+function sliderProduct(overrides: Partial<Product> & Pick<Product, 'id' | 'slug' | 'title' | 'brand' | 'price'>): Product {
+    return {
+        image: placeholderImage,
+        inStock: true,
+        ...overrides,
+    };
+}
+
+const discountProducts: Product[] = [
+    sliderProduct({
+        id: 101,
+        slug: 'matte-lipstick-no-12',
+        title: 'Matte Lipstick No. 12',
+        brand: 'Nica Beauty',
+        category: 'Makeup',
+        price: 180,
+        oldPrice: 240,
+        salePercent: 25,
+        isSale: true,
+    }),
+    sliderProduct({
+        id: 102,
+        slug: 'eyeshadow-palette',
+        title: 'Eyeshadow Palette',
+        brand: 'Nica Beauty',
+        category: 'Makeup',
+        price: 240,
+        oldPrice: 300,
+        salePercent: 20,
+        isSale: true,
+    }),
+    sliderProduct({
+        id: 103,
+        slug: 'setting-spray',
+        title: 'Setting Spray',
+        brand: 'Nica Beauty',
+        category: 'Makeup',
+        price: 168,
+        oldPrice: 210,
+        salePercent: 20,
+        isSale: true,
+    }),
+    sliderProduct({
+        id: 104,
+        slug: 'hand-cream',
+        title: 'Hand Cream',
+        brand: 'Vizaje Lab',
+        category: 'Skincare',
+        price: 76,
+        oldPrice: 95,
+        salePercent: 20,
+        isSale: true,
+    }),
+];
+
+const newProducts: Product[] = [
+    sliderProduct({
+        id: 201,
+        slug: 'hydrating-face-cream',
+        title: 'Hydrating Face Cream',
+        brand: 'Vizaje Lab',
+        category: 'Skincare',
+        price: 420,
+        bonusAmount: 42,
+        isNew: true,
+    }),
+    sliderProduct({
+        id: 202,
+        slug: 'vitamin-c-serum',
+        title: 'Vitamin C Serum',
+        brand: 'Vizaje Lab',
+        category: 'Skincare',
+        price: 340,
+        isNew: true,
+    }),
+    sliderProduct({
+        id: 203,
+        slug: 'body-lotion',
+        title: 'Body Lotion',
+        brand: 'Vizaje Lab',
+        category: 'Skincare',
+        price: 150,
+        isNew: true,
+    }),
+    sliderProduct({
+        id: 204,
+        slug: 'cologne-for-men',
+        title: 'Cologne for Men',
+        brand: 'Vizaje Parfum',
+        category: 'Perfume',
+        price: 650,
+        isNew: true,
+        isFlash: true,
+    }),
+];
+
+const hitProducts: Product[] = [
+    sliderProduct({
+        id: 301,
+        slug: 'matte-lipstick-no-12-hit',
+        title: 'Matte Lipstick No. 12',
+        brand: 'Nica Beauty',
+        category: 'Makeup',
+        price: 240,
+        isHit: true,
+        variants: [
+            { id: 1, label: 'Red', price: 240, inStock: true, colorHex: ['#C21807'] },
+            { id: 2, label: 'Nude', price: 240, inStock: true, colorHex: ['#C9947A'] },
+        ],
+    }),
+    sliderProduct({
+        id: 302,
+        slug: 'eau-de-parfum-50ml',
+        title: 'Eau de Parfum 50ml',
+        brand: 'Vizaje Parfum',
+        category: 'Perfume',
+        price: 890,
+        isHit: true,
+        isExclusive: true,
+    }),
+    sliderProduct({
+        id: 303,
+        slug: 'hydrating-face-cream-hit',
+        title: 'Hydrating Face Cream',
+        brand: 'Vizaje Lab',
+        category: 'Skincare',
+        price: 420,
+        bonusAmount: 42,
+        isHit: true,
+    }),
+    sliderProduct({
+        id: 304,
+        slug: 'vitamin-c-serum-hit',
+        title: 'Vitamin C Serum',
+        brand: 'Vizaje Lab',
+        category: 'Skincare',
+        price: 340,
+        isHit: true,
+        isGift: true,
+    }),
 ];
 
 const mockProducts = ref<Product[]>([
@@ -184,6 +333,32 @@ function handleOpenMenu(): void {
         @open-menu="handleOpenMenu"
     >
     <Hero :slides="heroSlides" />
+
+    <div class="home-sliders">
+        <ProductSlider
+            title="Скидки"
+            :products="discountProducts"
+            :show-wishlist="false"
+            @add-to-cart="handleAddToCart"
+            @open="handleOpen"
+        />
+
+        <ProductSlider
+            title="Новинки"
+            :products="newProducts"
+            :show-wishlist="false"
+            @add-to-cart="handleAddToCart"
+            @open="handleOpen"
+        />
+
+        <ProductSlider
+            title="Хиты продаж"
+            :products="hitProducts"
+            :show-wishlist="false"
+            @add-to-cart="handleAddToCart"
+            @open="handleOpen"
+        />
+    </div>
 
     <div class="ui-kit-demo">
         <h1 class="ui-kit-demo__title">Vizaje Nica — UI-kit</h1>
@@ -358,6 +533,15 @@ function handleOpenMenu(): void {
 </template>
 
 <style scoped>
+.home-sliders {
+    max-width: 90rem;
+    margin: 0 auto;
+    padding: 3rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
 .ui-kit-demo {
     max-width: 48rem;
     margin: 0 auto;
