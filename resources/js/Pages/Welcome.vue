@@ -10,6 +10,7 @@ import type { DrawerPosition } from '../Components/UI/UiDrawer.vue';
 import ProductCard from '../Components/Shop/ProductCard.vue';
 import Hero from '../Components/Home/Hero.vue';
 import ProductSlider from '../Components/Home/ProductSlider.vue';
+import GiftCardPromo from '../Components/Home/GiftCardPromo.vue';
 import type { HeroSlide } from '../Components/Home/Hero.vue';
 import type { Product } from '../types/product';
 import SiteLayout from '../Layouts/SiteLayout.vue';
@@ -359,6 +360,13 @@ function handleOpenMenu(): void {
             @open="handleOpen"
         />
     </div>
+
+    <GiftCardPromo
+        title="Подарочные карты"
+        subtitle="Кастомизируйте карту для любого повода, а мы доставим её вовремя."
+        cta-label="Купить карту"
+        cta-url="/catalog"
+    />
 
     <div class="ui-kit-demo">
         <h1 class="ui-kit-demo__title">Vizaje Nica — UI-kit</h1>
