@@ -119,6 +119,9 @@ function scrollBy(direction: 1 | -1): void {
 }
 
 .product-slider__track {
+    /* How many cards are visible at once -- fractional on small
+       screens as a "there's more" scroll hint, exactly 4 on desktop. */
+    --slider-visible: 1.4;
     display: flex;
     gap: 1rem;
     overflow-x: auto;
@@ -135,9 +138,26 @@ function scrollBy(direction: 1 | -1): void {
     scroll-snap-align: start;
 }
 
+/* Overrides ProductCard's own fixed 14rem slider width so exactly
+   --slider-visible cards fit the track's width, gaps included. */
+.product-slider__track > :deep(.product-card--slider) {
+    width: auto;
+    flex: 0 0 calc((100% - (var(--slider-visible) - 1) * 1rem) / var(--slider-visible));
+}
+
+@media (min-width: 40rem) {
+    .product-slider__track {
+        --slider-visible: 2.4;
+    }
+}
+
 @media (min-width: 64rem) {
     .product-slider__title {
         font-size: 1.75rem;
+    }
+
+    .product-slider__track {
+        --slider-visible: 4;
     }
 }
 </style>
