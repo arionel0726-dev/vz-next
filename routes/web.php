@@ -20,6 +20,13 @@ Route::get('/test', function () {
     return Inertia::render('Test/Index');
 });
 
+// Brand directory: test data only for now (see Pages/Brands/Index.vue) --
+// a real Brand model/table exists but only has the few brands the
+// catalog seeder created, not enough for this A-Z directory yet.
+Route::get('/brands', function () {
+    return Inertia::render('Brands/Index');
+});
+
 Route::get('/cart', [CartController::class, 'index']);
 Route::post('/cart/items', [CartController::class, 'store']);
 Route::patch('/cart/items/{key}', [CartController::class, 'update']);

@@ -3,11 +3,12 @@ import type { NavItem, FooterColumn } from '../types/nav';
 /**
  * Shared chrome content for SiteHeader/SiteFooter across every real
  * page. Kept to links that actually go somewhere — no placeholder
- * "Brands"/"Offers"/"Contacts"/"Help" entries pointing at "#", since
- * those pages don't exist yet.
+ * "Offers"/"Contacts"/"Help" entries pointing at "#", since those
+ * pages don't exist yet.
  */
 export const siteNavItems: NavItem[] = [
     { label: 'Catalog', url: '/catalog' },
+    { label: 'Brands', url: '/brands' },
     { label: 'Cart', url: '/cart' },
 ];
 
