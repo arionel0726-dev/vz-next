@@ -9,6 +9,8 @@ import UiIcon from '../Components/UI/UiIcon.vue';
 import type { DrawerPosition } from '../Components/UI/UiDrawer.vue';
 import ProductCard from '../Components/Shop/ProductCard.vue';
 import type { Product } from '../types/product';
+import SiteLayout from '../Layouts/SiteLayout.vue';
+import type { NavItem, FooterColumn } from '../types/nav';
 
 const textValue = ref('');
 const emailValue = ref('');
@@ -84,9 +86,75 @@ function handleToggleWishlist(product: Product): void {
         target.isLiked = !target.isLiked;
     }
 }
+
+/*
+ * Mock layout data for the Welcome demo page only.
+ */
+const mockNavItems: NavItem[] = [
+    { label: 'Catalog', url: '#' },
+    { label: 'Brands', url: '#' },
+    { label: 'Offers', url: '#' },
+    { label: 'Contacts', url: '#' },
+];
+
+const mockFooterColumns: FooterColumn[] = [
+    {
+        title: 'Company',
+        links: [
+            { label: 'About', url: '#' },
+            { label: 'Contacts', url: '#' },
+        ],
+    },
+    {
+        title: 'Help',
+        links: [
+            { label: 'Delivery', url: '#' },
+            { label: 'Returns', url: '#' },
+        ],
+    },
+];
+
+const mockSocialLinks: NavItem[] = [
+    { label: 'Instagram', url: '#' },
+    { label: 'Facebook', url: '#' },
+];
+
+/*
+ * Layout actions reuse the existing UiModal/UiDrawer demo state —
+ * no search/cart/auth logic is implemented here.
+ */
+function handleOpenSearch(): void {
+    isModalOpen.value = true;
+}
+
+function handleOpenCart(): void {
+    openDrawer('right');
+}
+
+function handleOpenProfile(): void {
+    openDrawer('left');
+}
+
+function handleOpenMenu(): void {
+    openDrawer('bottom');
+}
 </script>
 
 <template>
+    <SiteLayout
+        :nav-items="mockNavItems"
+        :footer-columns="mockFooterColumns"
+        :social-links="mockSocialLinks"
+        announcement="Free delivery from 500 MDL"
+        footer-description="Original cosmetics and perfumery since 1992."
+        copyright="© Vizaje Nica, 1992—2026."
+        :cart-count="2"
+        :wishlist-count="1"
+        @open-search="handleOpenSearch"
+        @open-cart="handleOpenCart"
+        @open-profile="handleOpenProfile"
+        @open-menu="handleOpenMenu"
+    >
     <div class="ui-kit-demo">
         <h1 class="ui-kit-demo__title">Vizaje Nica — UI-kit</h1>
         <p class="ui-kit-demo__subtitle">Inertia + Vue 3 работает.</p>
@@ -256,6 +324,7 @@ function handleToggleWishlist(product: Product): void {
             </div>
         </section>
     </div>
+    </SiteLayout>
 </template>
 
 <style scoped>
