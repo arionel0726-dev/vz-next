@@ -155,6 +155,89 @@ class CatalogSeeder extends Seeder
             'path' => 'products/lotiune-de-corp/main.jpg',
         ]);
 
+        $vitaminSerum = Product::create([
+            'category_id' => $skincare->id,
+            'brand_id' => $vizajeLab->id,
+            'sku' => 'VN-SKU-0006',
+            'title' => ['ro' => 'Ser cu vitamina C', 'ru' => 'Сыворотка с витамином C'],
+            'slug' => ['ro' => 'ser-vitamina-c', 'ru' => 'syvorotka-vitamin-c'],
+            'price' => 340,
+            'stock' => 18,
+            'is_new' => true,
+            'is_published' => true,
+        ]);
+
+        ProductImage::create([
+            'product_id' => $vitaminSerum->id,
+            'path' => 'products/ser-vitamina-c/main.jpg',
+        ]);
+
+        $eyeshadow = Product::create([
+            'category_id' => $makeup->id,
+            'brand_id' => $nicaBeauty->id,
+            'sku' => 'VN-SKU-0007',
+            'title' => ['ro' => 'Paletă farduri', 'ru' => 'Палетка теней'],
+            'slug' => ['ro' => 'paleta-farduri', 'ru' => 'paletka-teney'],
+            'price' => 300,
+            'discount_price' => 240,
+            'stock' => 11,
+            'is_published' => true,
+        ]);
+
+        ProductImage::create([
+            'product_id' => $eyeshadow->id,
+            'path' => 'products/paleta-farduri/main.jpg',
+        ]);
+
+        $cologne = Product::create([
+            'category_id' => $perfume->id,
+            'brand_id' => $vizajeParfum->id,
+            'sku' => 'VN-SKU-0008',
+            'title' => ['ro' => 'Apă de colonie bărbați', 'ru' => 'Мужской одеколон'],
+            'slug' => ['ro' => 'apa-de-colonie-barbati', 'ru' => 'muzhskoy-odekolon'],
+            'price' => 650,
+            'stock' => 0,
+            'is_published' => true,
+        ]);
+
+        ProductImage::create([
+            'product_id' => $cologne->id,
+            'path' => 'products/apa-de-colonie-barbati/main.jpg',
+        ]);
+
+        $handCream = Product::create([
+            'category_id' => $skincare->id,
+            'brand_id' => $vizajeLab->id,
+            'sku' => 'VN-SKU-0009',
+            'title' => ['ro' => 'Cremă de mâini', 'ru' => 'Крем для рук'],
+            'slug' => ['ro' => 'crema-de-maini', 'ru' => 'krem-dlya-ruk'],
+            'price' => 95,
+            'stock' => 40,
+            'is_published' => true,
+        ]);
+
+        ProductImage::create([
+            'product_id' => $handCream->id,
+            'path' => 'products/crema-de-maini/main.jpg',
+        ]);
+
+        $settingSpray = Product::create([
+            'category_id' => $makeup->id,
+            'brand_id' => $nicaBeauty->id,
+            'sku' => 'VN-SKU-0010',
+            'title' => ['ro' => 'Spray de fixare', 'ru' => 'Фиксирующий спрей'],
+            'slug' => ['ro' => 'spray-de-fixare', 'ru' => 'fiksiruyushchiy-sprey'],
+            'price' => 210,
+            'stock' => 20,
+            'is_new' => true,
+            'is_published' => true,
+        ]);
+
+        ProductImage::create([
+            'product_id' => $settingSpray->id,
+            'path' => 'products/spray-de-fixare/main.jpg',
+        ]);
+
         // Draft product, kept unpublished to exercise the catalog's
         // is_published filter.
         Product::create([
