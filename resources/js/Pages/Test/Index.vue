@@ -30,9 +30,9 @@ const placeholderImage = (fill: string) => 'data:image/svg+xml;utf8,' + encodeUR
     + `</svg>`,
 );
 
-const img1 = placeholderImage('%23e3e3e0');
-const img2 = placeholderImage('%23d8d4ea');
-const img3 = placeholderImage('%23ead8d4');
+const img1 = placeholderImage('#e3e3e0');
+const img2 = placeholderImage('#d8d4ea');
+const img3 = placeholderImage('#ead8d4');
 
 /* ---- 1. CatalogToolbar + ProductGrid ---- */
 

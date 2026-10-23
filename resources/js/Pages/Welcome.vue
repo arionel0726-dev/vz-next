@@ -8,6 +8,8 @@ import UiDrawer from '../Components/UI/UiDrawer.vue';
 import UiIcon from '../Components/UI/UiIcon.vue';
 import type { DrawerPosition } from '../Components/UI/UiDrawer.vue';
 import ProductCard from '../Components/Shop/ProductCard.vue';
+import Hero from '../Components/Home/Hero.vue';
+import type { HeroSlide } from '../Components/Home/Hero.vue';
 import type { Product } from '../types/product';
 import SiteLayout from '../Layouts/SiteLayout.vue';
 import type { NavItem, FooterColumn } from '../types/nav';
@@ -33,9 +35,42 @@ const placeholderImage =
     'data:image/svg+xml;utf8,' +
     encodeURIComponent(
         '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400">'
-        + '<rect width="400" height="400" fill="%23e3e3e0"/>'
+        + '<rect width="400" height="400" fill="#e3e3e0"/>'
         + '</svg>',
     );
+
+function heroPlaceholder(fill: string, width = 260, height = 360): string {
+    return 'data:image/svg+xml;utf8,' + encodeURIComponent(
+        `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">`
+        + `<rect width="${width}" height="${height}" fill="${fill}"/>`
+        + '</svg>',
+    );
+}
+
+/*
+ * No campaign/banner backend exists yet -- these slides are mock
+ * content for the Hero component, same as the rest of this page.
+ */
+const heroSlides: HeroSlide[] = [
+    {
+        id: 1,
+        title: 'Vizaje Lab',
+        subtitle: 'Уход за кожей с доказанной эффективностью',
+        ctaLabel: 'Перейти к бренду',
+        ctaUrl: '/catalog',
+        images: [heroPlaceholder('#e7ddf0'), heroPlaceholder('#d9c9ec'), heroPlaceholder('#cbb3e8')],
+        background: 'linear-gradient(135deg, #f1e9fa 0%, #e4d4f5 100%)',
+    },
+    {
+        id: 2,
+        title: 'Nica Beauty',
+        subtitle: 'Новая коллекция декоративной косметики',
+        ctaLabel: 'Перейти к бренду',
+        ctaUrl: '/catalog',
+        images: [heroPlaceholder('#fbe3e0'), heroPlaceholder('#f6c9c3')],
+        background: 'linear-gradient(135deg, #fdeeec 0%, #fad9d4 100%)',
+    },
+];
 
 const mockProducts = ref<Product[]>([
     {
@@ -148,6 +183,8 @@ function handleOpenMenu(): void {
         @open-search="handleOpenSearch"
         @open-menu="handleOpenMenu"
     >
+    <Hero :slides="heroSlides" />
+
     <div class="ui-kit-demo">
         <h1 class="ui-kit-demo__title">Vizaje Nica — UI-kit</h1>
         <p class="ui-kit-demo__subtitle">Inertia + Vue 3 работает.</p>

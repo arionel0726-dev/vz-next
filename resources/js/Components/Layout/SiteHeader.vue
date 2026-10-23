@@ -36,18 +36,15 @@ function isActiveNavUrl(url: string): boolean {
 }
 
 /**
- * Visual-only for now: vz-next has no multi-language routing yet (see
- * the legacy header spec, section "Что обязательно сохранить" #3),
- * so this only toggles local active state and doesn't change the URL
- * or page content. Wire it to real /ru, /ro routes once they exist.
+ * Visual-only label for now: vz-next has no multi-language routing
+ * and no store/city selector backend yet, so this is a static
+ * region/locale + city label, not an interactive dropdown -- no
+ * click handler, so it never implies functionality that isn't there.
+ * Wire it up for real once /ru, /ro routes and a stores feature
+ * exist.
  */
-type Locale = 'ru' | 'ro';
-const locales: Locale[] = ['ru', 'ro'];
-const activeLocale = ref<Locale>('ru');
-
-function setLocale(locale: Locale): void {
-    activeLocale.value = locale;
-}
+const regionLabel = 'MD · RU';
+const cityLabel = 'Chișinău';
 
 /*
  * Desktop-only scroll behavior: the announcement strip hides once the
@@ -90,17 +87,13 @@ onBeforeUnmount(() => {
         <!-- Desktop variant -->
         <div class="site-header__desktop">
             <div class="site-header__main site-header__container">
-                <div class="site-header__locale" role="group" aria-label="Language">
-                    <button
-                        v-for="locale in locales"
-                        :key="locale"
-                        type="button"
-                        class="site-header__locale-item"
-                        :class="{ 'is-active': activeLocale === locale }"
-                        @click="setLocale(locale)"
-                    >
-                        {{ locale.toUpperCase() }}
-                    </button>
+                <div class="site-header__locale">
+                    <span class="site-header__locale-region">{{ regionLabel }}</span>
+                    <span class="site-header__locale-divider" aria-hidden="true" />
+                    <span class="site-header__locale-city">
+                        <UiIcon name="chevron-down" :size="14" />
+                        {{ cityLabel }}
+                    </span>
                 </div>
 
                 <a :href="homeUrl" class="site-header__logo">
@@ -253,36 +246,33 @@ onBeforeUnmount(() => {
     background-color: var(--color-canvas);
 }
 
-/* Visual-only language toggle -- see the script comment above
-   activeLocale; no real /ru, /ro routing exists yet. */
+/* Static region/city label -- see the script comment above
+   regionLabel/cityLabel; not an interactive dropdown. */
 .site-header__locale {
+    justify-self: start;
     display: inline-flex;
     align-items: center;
-    gap: 0.125rem; /* 2px */
+    gap: 0.625rem; /* 10px */
     width: fit-content;
-    padding: 0.1875rem; /* 3px */
-    border-radius: 999px;
-    background-color: rgba(17, 17, 17, 0.05);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(17, 17, 17, 0.08);
+    font-size: 0.8125rem; /* 13px */
+    color: var(--color-ink);
 }
 
-.site-header__locale-item {
-    min-width: 2.25rem; /* 36px */
-    height: 1.875rem; /* 30px */
-    padding: 0 0.5625rem; /* 9px */
-    border: none;
-    border-radius: 999px;
-    background: transparent;
-    color: rgba(17, 17, 17, 0.7);
-    font-size: 0.75rem; /* 12px */
-    cursor: pointer;
-    transition: background-color 0.15s ease, color 0.15s ease;
+.site-header__locale-region {
+    font-weight: 500;
 }
 
-.site-header__locale-item.is-active {
-    background-color: var(--color-ink);
-    color: var(--color-canvas);
+.site-header__locale-divider {
+    width: 1px;
+    height: 1rem;
+    background-color: var(--color-border);
+}
+
+.site-header__locale-city {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    color: var(--color-muted);
 }
 
 .site-header__logo {
@@ -308,8 +298,9 @@ onBeforeUnmount(() => {
 }
 
 .site-header__logo span {
-    font-weight: 500;
-    font-size: 1.125rem;
+    font-weight: 600;
+    font-size: 0.9375rem; /* compact mark, not a full wordmark banner */
+    letter-spacing: 0.02em;
     color: var(--color-ink);
 }
 
@@ -374,7 +365,7 @@ onBeforeUnmount(() => {
 .site-header__nav-list {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     gap: clamp(1.125rem, 2.1vw, 2.25rem); /* clamp(18px, 2.1vw, 36px) */
 }
 
