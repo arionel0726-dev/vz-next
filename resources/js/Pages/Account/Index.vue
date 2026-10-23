@@ -3,7 +3,7 @@ import { router, useForm, Link } from '@inertiajs/vue3';
 import SiteLayout from '../../Layouts/SiteLayout.vue';
 import UiInput from '../../Components/UI/UiInput.vue';
 import UiButton from '../../Components/UI/UiButton.vue';
-import { siteNavItems, siteFooterColumns } from '../../constants/navigation';
+import { siteNavItems, siteFooterColumns, siteAnnouncement } from '../../constants/navigation';
 
 interface AccountUser {
     id: number;
@@ -37,7 +37,7 @@ function logout(): void {
 </script>
 
 <template>
-    <SiteLayout :nav-items="siteNavItems" :footer-columns="siteFooterColumns">
+    <SiteLayout :nav-items="siteNavItems" :footer-columns="siteFooterColumns" :announcement="siteAnnouncement">
         <div class="account-page">
             <h1 class="account-page__title">My account</h1>
 

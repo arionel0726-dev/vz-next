@@ -3,7 +3,7 @@ import { useForm, Link } from '@inertiajs/vue3';
 import SiteLayout from '../../Layouts/SiteLayout.vue';
 import UiInput from '../../Components/UI/UiInput.vue';
 import UiButton from '../../Components/UI/UiButton.vue';
-import { siteNavItems, siteFooterColumns } from '../../constants/navigation';
+import { siteNavItems, siteFooterColumns, siteAnnouncement } from '../../constants/navigation';
 
 const form = useForm({
     name: '',
@@ -21,7 +21,7 @@ function submit(): void {
 </script>
 
 <template>
-    <SiteLayout :nav-items="siteNavItems" :footer-columns="siteFooterColumns">
+    <SiteLayout :nav-items="siteNavItems" :footer-columns="siteFooterColumns" :announcement="siteAnnouncement">
         <div class="auth-page">
             <h1 class="auth-page__title">Create an account</h1>
 

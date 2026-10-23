@@ -2,12 +2,12 @@
 import { Link } from '@inertiajs/vue3';
 import SiteLayout from '../../Layouts/SiteLayout.vue';
 import UiIcon from '../../Components/UI/UiIcon.vue';
-import { siteNavItems, siteFooterColumns } from '../../constants/navigation';
+import { siteNavItems, siteFooterColumns, siteAnnouncement } from '../../constants/navigation';
 
 </script>
 
 <template>
-    <SiteLayout :nav-items="siteNavItems" :footer-columns="siteFooterColumns">
+    <SiteLayout :nav-items="siteNavItems" :footer-columns="siteFooterColumns" :announcement="siteAnnouncement">
         <div class="account-page">
             <h1 class="account-page__title">My account</h1>
 

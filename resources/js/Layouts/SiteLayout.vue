@@ -18,7 +18,7 @@ interface Props {
     wishlistCount?: number;
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
     navItems: () => [],
     footerColumns: () => [],
     socialLinks: () => [],
@@ -53,10 +53,18 @@ const emit = defineEmits<{
     'open-search': [];
     'open-menu': [];
 }>();
+
+/*
+ * The desktop header is fixed (legacy spec), so page content has to
+ * reserve its exact height itself: 136px (30 + 62 + 44) with the
+ * announcement strip, 106px without. Mobile header stays in normal
+ * flow (sticky), so it needs no compensation.
+ */
+const headerOffset = computed(() => (props.announcement ? '8.5rem' : '6.625rem'));
 </script>
 
 <template>
-    <div class="site-layout">
+    <div class="site-layout" :style="{ '--header-content-offset': headerOffset }">
         <SiteHeader
             :logo-url="logoUrl"
             :home-url="homeUrl"
@@ -108,6 +116,10 @@ const emit = defineEmits<{
 @media (min-width: 64rem) {
     .site-layout__content {
         padding-bottom: 0;
+        /* Compensates the desktop header's position: fixed (see
+           SiteHeader.vue) -- mobile header stays in normal flow
+           (sticky) and needs no compensation. */
+        padding-top: var(--header-content-offset);
     }
 }
 </style>
