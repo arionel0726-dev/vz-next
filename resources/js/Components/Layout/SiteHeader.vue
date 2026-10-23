@@ -26,8 +26,6 @@ withDefaults(defineProps<Props>(), {
 
 const emit = defineEmits<{
     'open-search': [];
-    'open-cart': [];
-    'open-profile': [];
     'open-menu': [];
 }>();
 </script>
@@ -69,8 +67,8 @@ const emit = defineEmits<{
                     <UiButton
                         variant="icon"
                         class="site-header__action"
-                        aria-label="Wishlist and profile"
-                        @click="emit('open-profile')"
+                        :aria-label="isAuthenticated ? 'Account' : 'Log in'"
+                        :href="isAuthenticated ? '/account' : '/login'"
                     >
                         <UiIcon :name="isAuthenticated ? 'user' : 'heart'" />
                         <span v-if="wishlistCount > 0" class="site-header__count">

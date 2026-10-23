@@ -16,7 +16,6 @@ interface Props {
     logoUrl?: string;
     homeUrl?: string;
     wishlistCount?: number;
-    isAuthenticated?: boolean;
 }
 
 withDefaults(defineProps<Props>(), {
@@ -29,20 +28,29 @@ withDefaults(defineProps<Props>(), {
     logoUrl: undefined,
     homeUrl: '/',
     wishlistCount: 0,
-    isAuthenticated: false,
 });
 
 /*
- * The cart item count is shared on every Inertia response (see
- * HandleInertiaRequests::share), so it stays correct across pages
- * without each page having to fetch or pass it.
+ * The cart item count and the authenticated user are shared on every
+ * Inertia response (see HandleInertiaRequests::share), so both stay
+ * correct across pages without each page having to fetch or pass
+ * them.
  */
 const cartCount = computed(() => (usePage().props.cartCount as number | undefined) ?? 0);
 
+interface SharedAuthUser {
+    id: number;
+    name: string;
+}
+
+const isAuthenticated = computed(() => {
+    const auth = usePage().props.auth as { user: SharedAuthUser | null } | undefined;
+
+    return !!auth?.user;
+});
+
 const emit = defineEmits<{
     'open-search': [];
-    'open-cart': [];
-    'open-profile': [];
     'open-menu': [];
 }>();
 </script>
@@ -58,8 +66,6 @@ const emit = defineEmits<{
             :wishlist-count="wishlistCount"
             :is-authenticated="isAuthenticated"
             @open-search="emit('open-search')"
-            @open-cart="emit('open-cart')"
-            @open-profile="emit('open-profile')"
             @open-menu="emit('open-menu')"
         />
 
@@ -80,9 +86,8 @@ const emit = defineEmits<{
             :home-url="homeUrl"
             :cart-count="cartCount"
             :wishlist-count="wishlistCount"
+            :is-authenticated="isAuthenticated"
             @open-search="emit('open-search')"
-            @open-cart="emit('open-cart')"
-            @open-profile="emit('open-profile')"
             @open-menu="emit('open-menu')"
         />
     </div>

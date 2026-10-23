@@ -124,18 +124,11 @@ const mockSocialLinks: NavItem[] = [
 
 /*
  * Layout actions reuse the existing UiModal/UiDrawer demo state —
- * no search/cart/auth logic is implemented here.
+ * cart and profile now navigate for real (see SiteHeader/
+ * MobileBottomMenu), only search/menu are still demo-only here.
  */
 function handleOpenSearch(): void {
     isModalOpen.value = true;
-}
-
-function handleOpenCart(): void {
-    openDrawer('right');
-}
-
-function handleOpenProfile(): void {
-    openDrawer('left');
 }
 
 function handleOpenMenu(): void {
@@ -153,8 +146,6 @@ function handleOpenMenu(): void {
         copyright="© Vizaje Nica, 1992—2026."
         :wishlist-count="1"
         @open-search="handleOpenSearch"
-        @open-cart="handleOpenCart"
-        @open-profile="handleOpenProfile"
         @open-menu="handleOpenMenu"
     >
     <div class="ui-kit-demo">

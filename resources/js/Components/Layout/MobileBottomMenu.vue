@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { router } from '@inertiajs/vue3';
 import UiIcon from '../UI/UiIcon.vue';
 import UiBadge from '../UI/UiBadge.vue';
 import type { IconName } from '../UI/UiIcon.vue';
@@ -7,18 +8,18 @@ interface Props {
     homeUrl?: string;
     cartCount?: number;
     wishlistCount?: number;
+    isAuthenticated?: boolean;
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
     homeUrl: '/',
     cartCount: 0,
     wishlistCount: 0,
+    isAuthenticated: false,
 });
 
 const emit = defineEmits<{
     'open-search': [];
-    'open-cart': [];
-    'open-profile': [];
     'open-menu': [];
 }>();
 
@@ -39,9 +40,9 @@ function handleAction(key: BottomMenuAction['key']): void {
     if (key === 'search') {
         emit('open-search');
     } else if (key === 'cart') {
-        emit('open-cart');
+        router.visit('/cart');
     } else if (key === 'profile') {
-        emit('open-profile');
+        router.visit(props.isAuthenticated ? '/account' : '/login');
     } else {
         emit('open-menu');
     }

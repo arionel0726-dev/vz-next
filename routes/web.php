@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\ProductController;
@@ -23,3 +24,12 @@ Route::post('/cart/items', [CartController::class, 'store']);
 Route::patch('/cart/items/{key}', [CartController::class, 'update']);
 Route::delete('/cart/items/{key}', [CartController::class, 'destroy']);
 Route::delete('/cart', [CartController::class, 'clear']);
+
+// Login, registration, logout, and password reset routes are
+// registered by Laravel Fortify itself (see
+// App\Providers\FortifyServiceProvider for the Inertia view
+// overrides); only the account area is this app's own.
+Route::middleware('auth')->group(function () {
+    Route::get('/account', [AccountController::class, 'show'])->name('account');
+    Route::get('/account/orders', [AccountController::class, 'orders'])->name('account.orders');
+});
