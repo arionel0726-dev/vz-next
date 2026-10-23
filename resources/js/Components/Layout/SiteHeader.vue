@@ -82,7 +82,7 @@ const emit = defineEmits<{
                         variant="icon"
                         class="site-header__action"
                         aria-label="Cart"
-                        @click="emit('open-cart')"
+                        href="/cart"
                     >
                         <UiIcon name="cart" />
                         <span v-if="cartCount > 0" class="site-header__count">

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { computed } from 'vue';
+import { usePage } from '@inertiajs/vue3';
 import SiteHeader from '../Components/Layout/SiteHeader.vue';
 import SiteFooter from '../Components/Layout/SiteFooter.vue';
 import MobileBottomMenu from '../Components/Layout/MobileBottomMenu.vue';
@@ -13,7 +15,6 @@ interface Props {
     copyright?: string;
     logoUrl?: string;
     homeUrl?: string;
-    cartCount?: number;
     wishlistCount?: number;
     isAuthenticated?: boolean;
 }
@@ -27,10 +28,16 @@ withDefaults(defineProps<Props>(), {
     copyright: undefined,
     logoUrl: undefined,
     homeUrl: '/',
-    cartCount: 0,
     wishlistCount: 0,
     isAuthenticated: false,
 });
+
+/*
+ * The cart item count is shared on every Inertia response (see
+ * HandleInertiaRequests::share), so it stays correct across pages
+ * without each page having to fetch or pass it.
+ */
+const cartCount = computed(() => (usePage().props.cartCount as number | undefined) ?? 0);
 
 const emit = defineEmits<{
     'open-search': [];

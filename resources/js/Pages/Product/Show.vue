@@ -58,9 +58,12 @@ const galleryImages = computed(() => {
 });
 
 function handleAddToCart(): void {
-    console.log('add-to-cart', {
-        productId: props.product.id,
-        variantId: selectedVariantId.value,
+    router.post('/cart/items', {
+        product_id: props.product.id,
+        variant_id: selectedVariantId.value ?? undefined,
+        quantity: 1,
+    }, {
+        preserveScroll: true,
     });
 }
 
@@ -106,7 +109,6 @@ const footerColumns: FooterColumn[] = [
         :nav-items="navItems"
         :footer-columns="footerColumns"
         announcement="Free delivery from 500 MDL"
-        :cart-count="2"
         :wishlist-count="1"
     >
         <div class="product-page">

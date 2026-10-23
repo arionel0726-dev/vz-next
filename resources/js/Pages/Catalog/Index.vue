@@ -127,7 +127,6 @@ const footerColumns: FooterColumn[] = [
         :nav-items="navItems"
         :footer-columns="footerColumns"
         announcement="Free delivery from 500 MDL"
-        :cart-count="2"
         :wishlist-count="1"
     >
         <div class="catalog-page">

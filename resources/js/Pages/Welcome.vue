@@ -151,7 +151,6 @@ function handleOpenMenu(): void {
         announcement="Free delivery from 500 MDL"
         footer-description="Original cosmetics and perfumery since 1992."
         copyright="© Vizaje Nica, 1992—2026."
-        :cart-count="2"
         :wishlist-count="1"
         @open-search="handleOpenSearch"
         @open-cart="handleOpenCart"

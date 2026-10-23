@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { Link } from '@inertiajs/vue3';
+
 export type ButtonVariant =
     | 'primary'
     | 'secondary'
@@ -15,6 +17,8 @@ interface Props {
     disabled?: boolean;
     loading?: boolean;
     ariaLabel?: string;
+    /** When set, renders as an Inertia Link instead of a <button>. */
+    href?: string;
 }
 
 withDefaults(defineProps<Props>(), {
@@ -23,6 +27,7 @@ withDefaults(defineProps<Props>(), {
     disabled: false,
     loading: false,
     ariaLabel: undefined,
+    href: undefined,
 });
 
 const emit = defineEmits<{
@@ -35,7 +40,23 @@ function handleClick(event: MouseEvent): void {
 </script>
 
 <template>
+    <Link
+        v-if="href"
+        class="ui-button"
+        :class="[`ui-button--${variant}`, { 'is-loading': loading }]"
+        :href="href"
+        :aria-label="ariaLabel"
+        @click="handleClick"
+    >
+        <slot name="icon-left" />
+        <span v-if="$slots.default" class="ui-button__label">
+            <slot />
+        </span>
+        <slot name="icon-right" />
+    </Link>
+
     <button
+        v-else
         class="ui-button"
         :class="[`ui-button--${variant}`, { 'is-loading': loading }]"
         :type="type"
