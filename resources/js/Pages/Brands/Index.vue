@@ -93,8 +93,6 @@ function scrollToLetter(letter: string): void {
         :announcement="siteAnnouncement"
     >
         <div class="brands-page">
-            <h1 class="brands-page__title">Brands</h1>
-
             <nav class="brands-page__alphabet" aria-label="Jump to letter">
                 <button
                     v-for="letter in letters"
@@ -110,17 +108,6 @@ function scrollToLetter(letter: string): void {
 
             <div class="brands-page__layout">
                 <aside class="brands-page__sidebar">
-                    <div class="brands-page__search">
-                        <input
-                            v-model="searchQuery"
-                            type="text"
-                            class="brands-page__search-input"
-                            placeholder="Найти бренды"
-                            aria-label="Search brands"
-                        >
-                        <UiIcon name="search" :size="22" />
-                    </div>
-
                     <div class="brands-page__favorites">
                         <h2 class="brands-page__favorites-title">Избранные</h2>
 
@@ -133,29 +120,42 @@ function scrollToLetter(letter: string): void {
                     </div>
                 </aside>
 
-                <div class="brands-page__groups">
-                    <p v-if="filteredBrands.length === 0" class="brands-page__no-results">
-                        Ничего не найдено.
-                    </p>
+                <div class="brands-page__content">
+                    <div class="brands-page__search">
+                        <input
+                            v-model="searchQuery"
+                            type="text"
+                            class="brands-page__search-input"
+                            placeholder="найти бренды"
+                            aria-label="Search brands"
+                        >
+                        <UiIcon name="search" :size="28" />
+                    </div>
 
-                    <section
-                        v-for="letter in visibleLetters"
-                        :id="`brand-letter-${letter}`"
-                        :key="letter"
-                        class="brands-page__group"
-                    >
-                        <h2 class="brands-page__group-title">{{ letter }}</h2>
+                    <div class="brands-page__groups">
+                        <p v-if="filteredBrands.length === 0" class="brands-page__no-results">
+                            Ничего не найдено.
+                        </p>
 
-                        <div class="brands-page__group-list">
-                            <span
-                                v-for="name in groupedBrands.get(letter)"
-                                :key="name"
-                                class="brands-page__brand"
-                            >
-                                {{ name }}
-                            </span>
-                        </div>
-                    </section>
+                        <section
+                            v-for="letter in visibleLetters"
+                            :id="`brand-letter-${letter}`"
+                            :key="letter"
+                            class="brands-page__group"
+                        >
+                            <h2 class="brands-page__group-title">{{ letter }}</h2>
+
+                            <div class="brands-page__group-list">
+                                <span
+                                    v-for="name in groupedBrands.get(letter)"
+                                    :key="name"
+                                    class="brands-page__brand"
+                                >
+                                    {{ name }}
+                                </span>
+                            </div>
+                        </section>
+                    </div>
                 </div>
             </div>
         </div>
@@ -169,18 +169,12 @@ function scrollToLetter(letter: string): void {
     padding: 1.5rem 1.5rem 4rem;
 }
 
-.brands-page__title {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-}
-
 .brands-page__alphabet {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
     padding-bottom: 1rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
     border-bottom: 1px solid var(--color-border);
 }
 
@@ -209,19 +203,20 @@ function scrollToLetter(letter: string): void {
     gap: 2.5rem;
 }
 
-.brands-page__sidebar {
+.brands-page__content {
     display: flex;
     flex-direction: column;
     gap: 2.5rem;
+    min-width: 0;
 }
 
 .brands-page__search {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 1.5rem;
     border-bottom: 1px solid var(--color-ink);
-    padding-bottom: 0.75rem;
-    color: var(--color-muted);
+    padding-bottom: 1rem;
+    color: var(--color-border);
 }
 
 .brands-page__search-input {
@@ -230,7 +225,7 @@ function scrollToLetter(letter: string): void {
     border: none;
     outline: none;
     background: transparent;
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-weight: 500;
     color: var(--color-ink);
 }
@@ -240,7 +235,7 @@ function scrollToLetter(letter: string): void {
 }
 
 .brands-page__favorites-title {
-    font-size: 1.25rem;
+    font-size: 1.75rem;
     font-weight: 700;
     margin-bottom: 0.75rem;
 }
@@ -294,9 +289,12 @@ function scrollToLetter(letter: string): void {
     .brands-page__sidebar {
         width: 18rem;
         flex-shrink: 0;
+        /* Lines "Избранные" up with the first group heading, below
+           the big search field in the content column. */
+        padding-top: 5.5rem;
     }
 
-    .brands-page__groups {
+    .brands-page__content {
         flex: 1;
     }
 
