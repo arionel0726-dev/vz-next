@@ -7,81 +7,11 @@ import type { Product } from '../../types/product';
 import type { CatalogViewMode, SortOption } from '../../types/catalog';
 import type { NavItem, FooterColumn } from '../../types/nav';
 
-/*
- * Mock catalog data for this page only — no database, no API,
- * no filtering logic. A real catalog route/controller is a
- * separate, later task.
- */
-const placeholderImage =
-    'data:image/svg+xml;utf8,' +
-    encodeURIComponent(
-        '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400">'
-        + '<rect width="400" height="400" fill="%23e3e3e0"/>'
-        + '</svg>',
-    );
+interface Props {
+    products: Product[];
+}
 
-const mockProducts = ref<Product[]>([
-    {
-        id: 1,
-        title: 'Hydrating Face Cream',
-        brand: 'Vizaje Lab',
-        image: placeholderImage,
-        price: 420,
-        bonusAmount: 42,
-        isNew: true,
-        inStock: true,
-    },
-    {
-        id: 2,
-        title: 'Matte Lipstick No. 12',
-        brand: 'Nica Beauty',
-        image: placeholderImage,
-        price: 180,
-        oldPrice: 240,
-        salePercent: 25,
-        isSale: true,
-        isHit: true,
-        inStock: true,
-    },
-    {
-        id: 3,
-        title: 'Eau de Parfum 50ml',
-        brand: 'Vizaje Parfum',
-        image: placeholderImage,
-        price: 890,
-        isLiked: true,
-        inStock: false,
-    },
-    {
-        id: 4,
-        title: 'Nourishing Hair Mask',
-        brand: 'Vizaje Lab',
-        image: placeholderImage,
-        price: 260,
-        bonusAmount: 26,
-        inStock: true,
-    },
-    {
-        id: 5,
-        title: 'Vitamin C Serum',
-        brand: 'Nica Beauty',
-        image: placeholderImage,
-        price: 340,
-        oldPrice: 400,
-        salePercent: 15,
-        isSale: true,
-        inStock: true,
-    },
-    {
-        id: 6,
-        title: 'Body Lotion 200ml',
-        brand: 'Vizaje Lab',
-        image: placeholderImage,
-        price: 150,
-        isNew: true,
-        inStock: true,
-    },
-]);
+const props = defineProps<Props>();
 
 const sortOptions: SortOption[] = [
     { value: 'popular', label: 'Popular' },
@@ -101,25 +31,21 @@ function handleOpen(product: Product): void {
 }
 
 function handleToggleWishlist(product: Product): void {
-    const target = mockProducts.value.find((item) => item.id === product.id);
-
-    if (target) {
-        target.isLiked = !target.isLiked;
-    }
+    console.log('toggle-wishlist', product);
 }
 
 function handleOpenFilters(): void {
     console.log('open-filters');
 }
 
-const mockNavItems: NavItem[] = [
+const navItems: NavItem[] = [
     { label: 'Catalog', url: '/catalog' },
     { label: 'Brands', url: '#' },
     { label: 'Offers', url: '#' },
     { label: 'Contacts', url: '#' },
 ];
 
-const mockFooterColumns: FooterColumn[] = [
+const footerColumns: FooterColumn[] = [
     {
         title: 'Company',
         links: [
@@ -139,8 +65,8 @@ const mockFooterColumns: FooterColumn[] = [
 
 <template>
     <SiteLayout
-        :nav-items="mockNavItems"
-        :footer-columns="mockFooterColumns"
+        :nav-items="navItems"
+        :footer-columns="footerColumns"
         announcement="Free delivery from 500 MDL"
         :cart-count="2"
         :wishlist-count="1"
@@ -149,7 +75,7 @@ const mockFooterColumns: FooterColumn[] = [
             <h1 class="catalog-page__title">Catalog</h1>
 
             <CatalogToolbar
-                :product-count="mockProducts.length"
+                :product-count="props.products.length"
                 :view-mode="viewMode"
                 :sort-value="sortValue"
                 :sort-options="sortOptions"
@@ -159,7 +85,7 @@ const mockFooterColumns: FooterColumn[] = [
             />
 
             <ProductGrid
-                :products="mockProducts"
+                :products="props.products"
                 :view-mode="viewMode"
                 @add-to-cart="handleAddToCart"
                 @open="handleOpen"

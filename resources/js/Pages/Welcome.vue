@@ -40,6 +40,7 @@ const placeholderImage =
 const mockProducts = ref<Product[]>([
     {
         id: 1,
+        slug: 'hydrating-face-cream',
         title: 'Hydrating Face Cream',
         brand: 'Vizaje Lab',
         image: placeholderImage,
@@ -50,6 +51,7 @@ const mockProducts = ref<Product[]>([
     },
     {
         id: 2,
+        slug: 'matte-lipstick-no-12',
         title: 'Matte Lipstick No. 12',
         brand: 'Nica Beauty',
         image: placeholderImage,
@@ -62,6 +64,7 @@ const mockProducts = ref<Product[]>([
     },
     {
         id: 3,
+        slug: 'eau-de-parfum-50ml',
         title: 'Eau de Parfum 50ml',
         brand: 'Vizaje Parfum',
         image: placeholderImage,

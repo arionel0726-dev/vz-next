@@ -48,6 +48,6 @@ class ProductVariant extends Model
 
     public function images(): HasMany
     {
-        return $this->hasMany(ProductVariantImage::class);
+        return $this->hasMany(ProductVariantImage::class)->orderBy('sort_order');
     }
 }
